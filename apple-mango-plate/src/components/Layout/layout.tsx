@@ -1,11 +1,14 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Header from "./header";
+import { useState, useEffect, useRef } from "react";
+import { useSetNavBarTheme } from "@/utils/scrollTrigger";
 
 interface LayoutProps {
-  children: ReactNode;
+  children: JSX.Element;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps) => {
+  // const {setNavBarTheme} = useSetNavBarTheme();
   return (
     <>
       <Header />
