@@ -1,7 +1,7 @@
-import { HeaderDTO } from "@/types/header";
+import { SignupDTO } from "@/types/signup";
 import { atom } from "recoil";
 
-export const scrollPosition = atom<HeaderDTO>({
-  key: "scrollPosition",
-  default: { initial: "white" },
+export const signupState = atom<SignupDTO>({
+  key: "signupState",
+  default: { email: "", password: "", name: "", phone: 0 },
 });
