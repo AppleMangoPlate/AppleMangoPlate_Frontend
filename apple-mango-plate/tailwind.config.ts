@@ -16,6 +16,7 @@ const config: Config = {
     },
     colors: {
       "primary-yellow": "rgba(255,246,233)",
+      "primary-black": "rgba(51,51,51)",
     },
   },
   plugins: [],

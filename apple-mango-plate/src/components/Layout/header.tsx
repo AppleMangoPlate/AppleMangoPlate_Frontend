@@ -1,23 +1,29 @@
 import Link from "next/link";
 import React from "react";
 import icons from "@/assets/icons/icon";
-import { FaRegUser } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { userModalToggle } from "@/atoms/users";
+import UserModal from "../User/userModal";
 
 const UserIcon = icons.userIcons;
 
 const Header = () => {
+  const [modalOpen, setModalOpen] = useRecoilState<boolean>(userModalToggle);
+  const handleLoginClick = () => {
+    setModalOpen((prev) => !prev);
+  };
+
   return (
     <div className="sticky top-0 w-full h-16 bg-primary-yellow">
-      <div className="flex h-16 items-center justify-between  text-[black] mx-10">
+      <div className="flex h-16 items-center justify-between  text-[black] mx-10 relative">
         <div>
-          <Link href="/">
-            <p>이미지 들어갈곳</p>
-          </Link>
+          <Link href="/">이미지</Link>
         </div>
         <div>
-          <button>
-            <UserIcon color="black" size={24} />
+          <button onClick={handleLoginClick}>
+            <UserIcon color="black" size={18} />
           </button>
+          <UserModal />
         </div>
       </div>
     </div>
