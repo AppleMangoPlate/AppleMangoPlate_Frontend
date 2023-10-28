@@ -30,48 +30,56 @@ const Auth = () => {
   );
 
   return (
-    <div>
-      <form className="flex flex-col gap-3">
-        <div className="flex gap-3">
-          <label htmlFor="email">이메일</label>
-          <input
-            className="bg-[gray-100]"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              const input = e.target.value;
-              setEmail(input);
-            }}
-          />
-        </div>
-        <div className="flex gap-3">
-          <label htmlFor="password">비밀번호</label>
-          <input
-            className="bg-[gray-100]"
-            id="password"
-            value={password}
-            placeholder="*******"
-            onChange={(e) => {
-              const input = e.target.value;
-              setPassword(input);
-            }}
-          />
-        </div>
+    <div className="bg-primary-black h-screen flex justify-center items-center">
+      <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
+        <form className="bg-primary-black py-2 flex flex-col gap-3 w-2/3 rounded-3xl mb-5">
+          <div className="flex items-center gap-3">
+            <label className="block w-4 text-sm ml-2" htmlFor="email">
+              ID
+            </label>
+            <input
+              className=" py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </form>
+
+        <form className="bg-primary-black py-2 flex flex-col gap-3 w-2/3 rounded-3xl">
+          <div className="flex gap-3 items-center">
+            <label className="block w-4 text-sm ml-2" htmlFor="password">
+              PW
+            </label>
+            <input
+              className=" py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </form>
         <button
-          className="border-2 border-black"
+          className="bg-primary-black py-2 flex justify-center w-2/3 rounded-3xl my-5"
           onClick={() => onSubmit({ email, password })}
         >
           로그인
         </button>
-      </form>
-      <div>
-        <Link href="/auth/customlogin">
-          <button>회원가입</button>
-        </Link>
-      </div>
-      <div>
-        <button onClick={() => signIn("kakao")}>카카오 로그인</button>
+
+        <div className="flex flex-col mt-4 gap-y-3 w-1/2">
+          <button
+            className="bg-[#f7f72f] text-[black] w-full h-10 rounded-3xl"
+            onClick={() => signIn("kakao")}
+          >
+            kakaoTalk
+          </button>
+          <Link href="/auth/customlogin">
+            <button className="bg-primary-black w-full h-10 rounded-3xl">
+              회원가입
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
