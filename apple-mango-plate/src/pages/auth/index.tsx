@@ -30,7 +30,7 @@ const Auth = () => {
   );
 
   return (
-    <div className="bg-primary-black h-screen flex justify-center items-center">
+    <div className="bg-primary-black min-h-screen flex justify-center items-center">
       <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
         <form className="bg-primary-black py-2 flex flex-col gap-3 w-2/3 rounded-3xl mb-5">
           <div className="flex items-center gap-3">
