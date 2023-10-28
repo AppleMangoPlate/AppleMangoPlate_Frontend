@@ -13,7 +13,7 @@ export default NextAuth({
       credentials: {
         email: {
           label: "이메일",
-          type: "email",
+          type: "text",
           placeholder: "이메일을 입력하세요",
         },
         password: {
@@ -46,7 +46,7 @@ export default NextAuth({
       console.log("Provider에게 넘겨받은 정보", session);
 
       const exUser = {
-        idx: 2,
+        // idx: 2,
         id: "2",
         name: "이철수",
         email: "lee@naver.com",

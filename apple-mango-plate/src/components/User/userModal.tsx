@@ -17,6 +17,7 @@ const UserModal = () => {
     return (
       <>
         {session.user?.name}님 반갑습니다. <br />
+        {console.log(session.user.email)}
         <button
           onClick={() => signOut()}
           className="w-full h-auto border-2 rounded-xl text-center"

@@ -38,7 +38,7 @@ const Auth = () => {
               ID
             </label>
             <input
-              className=" py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              className="text-[black] py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -52,7 +52,7 @@ const Auth = () => {
               PW
             </label>
             <input
-              className=" py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              className="text-[black] py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
               id="password"
               type="password"
               value={password}
@@ -66,6 +66,7 @@ const Auth = () => {
         >
           로그인
         </button>
+        <div className="w-2/3 border-[1px] border-[#787822]"></div>
 
         <div className="flex flex-col mt-4 gap-y-3 w-1/2">
           <button
