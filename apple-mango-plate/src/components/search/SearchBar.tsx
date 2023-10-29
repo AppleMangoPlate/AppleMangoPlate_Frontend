@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SearchBar() {
+  const [input, setInput] = useState<string>("");
+
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSearch = () => {
+    if (input === "") return;
+    //Search 페이지 이동 후 api연결
+  };
+
   return (
-    <div className="flex bg-background_gray h-16 items-center justify-center">
+    <div className="home-search-container ">
       <svg
-        width="28"
-        height="28"
+        width="24"
+        height="24"
         viewBox="0 0 28 28"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="relative left-[-2%]"
       >
         <g clip-path="url(#clip0_221_846)">
           <path
@@ -23,9 +35,13 @@ export default function SearchBar() {
         </defs>
       </svg>
       <input
-        className="bg-background w-[40%] h-12 rounded-full pl-6"
+        className="home-search-input"
         placeholder="지역, 식당 또는 음식"
-      ></input>
+        onChange={changeInput}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSearch();
+        }}
+      />
     </div>
   );
 }

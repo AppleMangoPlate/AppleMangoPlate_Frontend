@@ -13,3 +13,51 @@
     }
   }
 }
+
+.home-review-container {
+  @apply bg-background h-[55vh] items-center justify-center flex-col flex;
+
+  .home-review-restaurant-container {
+    @apply grid grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1 
+    pb-10 w-[80vw] h-[50%] flex-grow items-center justify-center;
+
+    .home-review-icon-container {
+      @apply flex flex-col pt-44;
+
+      .home-review-icon-logo {
+        @apply flex ml-[58%] w-[4.5vw] min-w-[50px];
+      }
+      .home-review-icon-title {
+        @apply flex w-[20vw] h-[13vh];
+      }
+    }
+  }
+}
+
+.home-rating-container {
+  @apply bg-background_gray h-[50vh] items-center justify-center flex-col flex;
+
+  .home-rating-restaurant-container {
+    @apply grid grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1 
+    pb-10 w-[80vw] h-[50%] flex-grow items-center justify-center;
+
+    .home-rating-icon-container {
+      @apply flex flex-col pt-44;
+
+      .home-rating-icon-logo {
+        @apply flex ml-[24%] w-[3.5vw] min-w-[50px];
+      }
+      .home-rating-icon-title {
+        @apply flex w-[20vw] h-[13vh];
+      }
+    }
+  }
+}
+
+.home-search-container {
+  @apply flex bg-background_gray w-full h-16 items-center justify-center;
+
+  .home-search-input {
+    @apply bg-background w-[40%] h-12 rounded-full pl-6 outline-none;
+  }
+}
