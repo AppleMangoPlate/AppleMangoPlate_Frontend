@@ -12,13 +12,14 @@ export default function MainThumbnail({ title, color }: props) {
     <div className="flex items-end justify-center h-full">
       <div
         className={`absolute flex justify-center items-center rounded-full text-center
-          w-[18vw] h-[18vw] mb-[4.5vw] max-w-[300px] max-h-[300px] ${
-            color === "black" ? "bg-background_gray" : "bg-background"
-          }`}
+        w-[30vw] h-[30vw] mb-[10vw] 
+        md:w-[15vw] md:h-[15vw] md:mb-[4vw] max-w-[300px] max-h-[300px] ${
+          color === "black" ? "bg-background_gray" : "bg-background"
+        }`}
       >
         <span
           className={`${color === "black" ? "text-white" : "text-black"}
-          flex w-[10vw] mb-[7vw] text-bold text-[1.5vw] whitespace-pre-wrap justify-center`}
+          flex w-[18vw] md:w-[10vw] mb-[12vw] md:mb-[7vw] text-bold text-[2.5vw] md:text-[1.5vw] whitespace-pre-wrap justify-center`}
         >
           {title}
         </span>
@@ -27,7 +28,7 @@ export default function MainThumbnail({ title, color }: props) {
         src={restaurant}
         alt="main-logo-1"
         quality={100}
-        className="w-[18vw] h-[14vw] max-w-[300px] flex z-10"
+        className="w-[30vw] h-[25vw] md:w-[15vw] md:h-[12vw] max-w-[300px] flex z-10"
       />
     </div>
   );

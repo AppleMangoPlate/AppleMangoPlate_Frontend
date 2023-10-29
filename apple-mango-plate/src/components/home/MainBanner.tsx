@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function MainBanner() {
   return (
-    <div className="relative w-full h-[40vh]">
+    <div className="relative w-full h-[40vh] min-h-[200px]">
       <div className="home-main-banner-container">
         <span className="home-main-banner-title">[ 10월 머먹오 ] </span>
         <span className="home-main-banner-title">{`먹바타가 대신 가본 <불끈>`}</span>
