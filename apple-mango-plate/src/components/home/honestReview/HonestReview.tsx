@@ -1,4 +1,4 @@
-import SearchBar from "@/components/search/SearchBar";
+import Search from "@/components/search/Search";
 import Image from "next/image";
 import React from "react";
 import logo from "../../../../public/logo.png";
@@ -7,7 +7,7 @@ import MainThumbnail from "@/components/home/utils/MainThumbnail";
 export default function HonestReview() {
   return (
     <div className="home-review-container">
-      <SearchBar />
+      <Search />
       <section className="home-review-restaurant-container">
         <div className="home-review-icon-container">
           <Image

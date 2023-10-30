@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 
-export default function SearchBar() {
-  const [input, setInput] = useState<string>("");
+interface props {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  modal: boolean;
+}
 
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleSearch = () => {
-    if (input === "") return;
-    //Search 페이지 이동 후 api연결
-  };
-
+export default function SearchBar({ setModal, modal }: props) {
   return (
-    <div className="home-search-container ">
+    <div className="home-search-container" onClick={() => setModal(true)}>
       <svg
         width="24"
         height="24"
         viewBox="0 0 28 28"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="relative left-[-2%]"
+        className={`absolute left-[27%]
+        ${modal ? "invisible" : "visible"}`}
       >
         <g clip-path="url(#clip0_221_846)">
           <path
@@ -34,14 +29,7 @@ export default function SearchBar() {
           </clipPath>
         </defs>
       </svg>
-      <input
-        className="home-search-input"
-        placeholder="지역, 식당 또는 음식"
-        onChange={changeInput}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleSearch();
-        }}
-      />
+      <div className="home-search-input">지역, 식당 또는 음식</div>
     </div>
   );
 }
