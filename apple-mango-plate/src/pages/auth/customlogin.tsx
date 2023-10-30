@@ -28,57 +28,76 @@ const Auth = () => {
     <div className="bg-primary-black">
       <div className="flex flex-col min-h-screen justify-center items-center">
         <div>
-          <UserPlus size={100} color="#FB980D" />
+          <UserPlus size={100} color="#ffffff" />
         </div>
-        <div className="mt-10">
-          <form
-            className="bg-primary-black py-2 gap-3  mb-5"
-            onSubmit={handleSubmit}
-          >
-            <div className="absolute z-30 ml-4 mt-3">
-              <User size={38} color="#FB980D" />
+        <div className="mt-10 xl:w-1/2 lg:w-1/2 sm:w-full md:w-full">
+          <form className="bg-primary-black py-2 mb-5" onSubmit={handleSubmit}>
+            <div className="email">
+              <div className="absolute z-30 ml-5 mt-3">
+                <User size={34} color="#ffffff" />
+              </div>
+
+              <input
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                type="text"
+                name="email"
+                value={signupData.email}
+                onChange={handleInputChange}
+                placeholder="이메일을 입력해주세요."
+              />
             </div>
-            <input
-              className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow"
-              type="text"
-              name="email"
-              value={signupData.email}
-              onChange={handleInputChange}
-              placeholder="이메일을 입력해주세요."
-            />
-            <div className="absolute z-30 ml-4 mt-3">
-              <Lock size={40} color="#FB980D" />
+            <div className="password">
+              <div className="absolute z-30 ml-4 mt-3">
+                <Lock size={40} color="#ffffff" />
+              </div>
+              <input
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                type="password"
+                name="password"
+                value={signupData.password}
+                onChange={handleInputChange}
+                placeholder="비밀번호를 입력해주세요."
+              />
             </div>
-            <input
-              className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow"
-              type="password"
-              name="password"
-              value={signupData.password}
-              onChange={handleInputChange}
-              placeholder="비밀번호를 입력해주세요."
-            />
-            <div className="absolute z-30 ml-4 mt-3">
-              <User size={38} color="#FB980D" />
+            <div className="passwordCheck mb-20">
+              <div className="absolute z-30 ml-4 mt-3">
+                <Lock size={40} color="#ffffff" />
+              </div>
+              <input
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                type="password"
+                name="passwordCheck"
+                value={signupData.passwordCheck}
+                onChange={handleInputChange}
+                placeholder="비밀번호를 다시 입력해주세요."
+              />
             </div>
-            <input
-              className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow"
-              type="text"
-              name="name"
-              value={signupData.name}
-              onChange={handleInputChange}
-              placeholder="이름을 입력해주세요."
-            />
-            <div className="absolute z-30 ml-4 mt-3">
-              <Tel size={40} color="#FB980D" />
+            <div className="name">
+              <div className="absolute z-30 ml-5 mt-3">
+                <User size={34} color="#FB980D" />
+              </div>
+              <input
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange"
+                type="text"
+                name="name"
+                value={signupData.name}
+                onChange={handleInputChange}
+                placeholder="이름을 입력해주세요."
+              />
             </div>
-            <input
-              className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow"
-              type="text"
-              name="phone"
-              value={signupData.phone}
-              onChange={handleInputChange}
-              placeholder="번호를 입력해주세요."
-            />
+            <div className="tel">
+              <div className="absolute z-30 ml-4 mt-3">
+                <Tel size={40} color="#FB980D" />
+              </div>
+              <input
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange"
+                type="text"
+                name="phone"
+                value={signupData.phone}
+                onChange={handleInputChange}
+                placeholder="번호를 입력해주세요."
+              />
+            </div>
           </form>
         </div>
         <button className="mt-32 flex justify-center" type="submit">

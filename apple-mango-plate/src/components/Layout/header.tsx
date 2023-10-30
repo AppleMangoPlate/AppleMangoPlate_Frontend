@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <div className="sticky top-0 w-full h-16 bg-primary-yellow">
+    <div className="sticky top-0 w-full h-16 bg-primary-yellow z-50">
       <div className="flex h-16 items-center justify-between  text-[black] mx-10 relative">
         <div>
           <Link href="/">이미지</Link>

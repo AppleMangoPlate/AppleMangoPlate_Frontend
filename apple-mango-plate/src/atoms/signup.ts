@@ -3,5 +3,11 @@ import { atom } from "recoil";
 
 export const signupState = atom<SignupDTO>({
   key: "signupState",
-  default: { email: "", password: "", name: "", phone: "" },
+  default: {
+    email: "",
+    password: "",
+    name: "",
+    passwordCheck: "",
+    phone: "",
+  },
 });
