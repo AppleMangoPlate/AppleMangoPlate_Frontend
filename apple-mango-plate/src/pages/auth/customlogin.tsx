@@ -1,5 +1,6 @@
 import icons from "@/assets/icons/icon";
 import { signupState } from "@/atoms/signup";
+import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 
 const Auth = () => {
@@ -9,19 +10,44 @@ const Auth = () => {
   const Lock = icons.lockIcons;
   const Tel = icons.addressBook;
   const [signupData, setSignupData] = useRecoilState(signupState);
+  const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
+  const passwordCheckRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    if (name === "password" || name === "passwordCheck") {
+      setPasswordMatch(null);
+    }
+
     setSignupData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+    // false일때 회원가입 버튼을 누르면 passwordCheck input으로 돌아오도록 설정하기
+    if (name === "passwordCheck") {
+      if (value === signupData.password) {
+        setPasswordMatch(true);
+      } else {
+        setPasswordMatch(false);
+      }
+    }
+  };
+
+  const passwordCheckCss = () => {
+    let input = "bg-primary-orange";
+    if (passwordMatch !== null) {
+      input = passwordMatch ? "bg-[#6aeb6a]" : "bg-[#eb2626]";
+    }
+    return input;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("Submitting data:", signupData);
+    if (passwordMatch === false && passwordCheckRef.current) {
+      passwordCheckRef.current.focus();
+    } else {
+      console.log("Submitting data:", signupData);
+    }
   };
 
   return (
@@ -64,13 +90,25 @@ const Auth = () => {
                 <Lock size={40} color="#ffffff" />
               </div>
               <input
-                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                className={`text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow`}
                 type="password"
                 name="passwordCheck"
+                ref={passwordCheckRef}
                 value={signupData.passwordCheck}
                 onChange={handleInputChange}
                 placeholder="비밀번호를 다시 입력해주세요."
               />
+              {passwordMatch !== null && (
+                <span
+                  className={`ml-2 ${
+                    passwordMatch ? "text-[#6aeb6a]" : "text-[#eb2626]"
+                  }`}
+                >
+                  {passwordMatch
+                    ? "비밀번호와 일치합니다"
+                    : "비밀번호와 일치하지 않습니다"}
+                </span>
+              )}
             </div>
             <div className="name">
               <div className="absolute z-30 ml-5 mt-3">
@@ -100,7 +138,11 @@ const Auth = () => {
             </div>
           </form>
         </div>
-        <button className="mt-32 flex justify-center" type="submit">
+        <button
+          className="mt-32 flex justify-center"
+          onClick={handleSubmit}
+          type="submit"
+        >
           <SubmitArrow size={80} color="#FB980D" />
         </button>
       </div>

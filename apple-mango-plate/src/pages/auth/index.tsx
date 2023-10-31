@@ -2,8 +2,10 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useCallback } from "react";
+import icons from "@/assets/icons/icon";
 
 const Auth = () => {
+  const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +40,7 @@ const Auth = () => {
               ID
             </label>
             <input
-              className="text-[black] py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              className="text-[black] py-[2px] pl-2 w-full mr-1 rounded-3xl bg-primary-yellow"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -52,7 +54,7 @@ const Auth = () => {
               PW
             </label>
             <input
-              className="text-[black] py-[2px] w-full mr-1 rounded-3xl bg-primary-yellow"
+              className="text-[black] py-[2px] pl-2 w-full mr-1 rounded-3xl bg-primary-yellow"
               id="password"
               type="password"
               value={password}
@@ -70,10 +72,11 @@ const Auth = () => {
 
         <div className="flex flex-col mt-4 gap-y-3 w-1/2">
           <button
-            className="bg-[#f7f72f] text-[black] w-full h-10 rounded-3xl"
+            className="flex items-center justify-center bg-[#f7f72f] text-[black] w-full h-10 rounded-3xl"
             onClick={() => signIn("kakao")}
           >
-            kakaoTalk
+            <KakaoIcon size={24} color="black" />
+            <span className="ml-2">kakaoTalk</span>
           </button>
           <Link href="/auth/customlogin">
             <button className="bg-primary-black w-full h-10 rounded-3xl">
