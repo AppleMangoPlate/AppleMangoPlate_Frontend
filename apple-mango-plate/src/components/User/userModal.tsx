@@ -16,14 +16,22 @@ const UserModal = () => {
   if (session) {
     return (
       <>
-        {session.user?.name}님 반갑습니다. <br />
-        {console.log(session.user.email)}
-        <button
-          onClick={() => signOut()}
-          className="w-full h-auto border-2 rounded-xl text-center"
-        >
-          로그아웃
-        </button>
+        {modalOpen && (
+          <div className="absolute top-11 right-5">
+            <div className="bg-primary-black w-64 h-auto text-[white] border-[white] p-4 rounded-s-3xl rounded-b-3xl">
+              <div className="text-center border-b-4 leading-10 mb-4">
+                <p>내 정보</p>
+              </div>
+              <div className="my-3">{session.user?.name}님 반갑습니다.</div>
+              <button
+                onClick={() => signOut()}
+                className="w-full h-auto border-2 rounded-xl text-center"
+              >
+                로그아웃
+              </button>
+            </div>
+          </div>
+        )}
       </>
     );
   }

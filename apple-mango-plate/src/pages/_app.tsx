@@ -12,9 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {/* <Layout> */}
+          <Component {...pageProps} />
+          {/* </Layout> */}
         </QueryClientProvider>
       </RecoilRoot>
     </SessionProvider>

@@ -34,6 +34,7 @@ const Auth = () => {
   return (
     <div className="bg-primary-black min-h-screen flex justify-center items-center">
       <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
+        <h2 className="text-[black] text-2xl mb-6">Login</h2>
         <form className="bg-primary-black py-2 flex flex-col gap-3 w-2/3 rounded-3xl mb-5">
           <div className="flex items-center gap-3">
             <label className="block w-4 text-sm ml-2" htmlFor="email">

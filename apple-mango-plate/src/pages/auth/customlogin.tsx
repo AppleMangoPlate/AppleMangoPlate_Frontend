@@ -54,7 +54,7 @@ const Auth = () => {
     <div className="bg-primary-black">
       <div className="flex flex-col min-h-screen justify-center items-center">
         <div>
-          <UserPlus size={100} color="#ffffff" />
+          <UserPlus color="#ffffff" />
         </div>
         <div className="mt-10 xl:w-1/2 lg:w-1/2 sm:w-full md:w-full">
           <form className="bg-primary-black py-2 mb-5" onSubmit={handleSubmit}>
@@ -64,7 +64,7 @@ const Auth = () => {
               </div>
 
               <input
-                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow placeholder:text-sm"
                 type="text"
                 name="email"
                 value={signupData.email}
@@ -77,7 +77,7 @@ const Auth = () => {
                 <Lock size={40} color="#ffffff" />
               </div>
               <input
-                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow"
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow placeholder:text-sm"
                 type="password"
                 name="password"
                 value={signupData.password}
@@ -90,7 +90,7 @@ const Auth = () => {
                 <Lock size={40} color="#ffffff" />
               </div>
               <input
-                className={`text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow`}
+                className={`text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow placeholder:text-sm`}
                 type="password"
                 name="passwordCheck"
                 ref={passwordCheckRef}
@@ -115,7 +115,7 @@ const Auth = () => {
                 <User size={34} color="#FB980D" />
               </div>
               <input
-                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange"
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
                 name="name"
                 value={signupData.name}
@@ -128,7 +128,7 @@ const Auth = () => {
                 <Tel size={40} color="#FB980D" />
               </div>
               <input
-                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange"
+                className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
                 name="phone"
                 value={signupData.phone}
