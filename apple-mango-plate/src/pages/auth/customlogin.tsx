@@ -90,7 +90,7 @@ const Auth = () => {
                 <Lock size={40} color="#ffffff" />
               </div>
               <input
-                className={`text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow placeholder:text-sm`}
+                className={`text-black  relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow placeholder:text-sm`}
                 type="password"
                 name="passwordCheck"
                 ref={passwordCheckRef}
