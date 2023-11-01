@@ -3,6 +3,10 @@ import { signupState } from "@/atoms/signup";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
+import {
+  emailCheckMessageState,
+  isEmailAvailableState,
+} from "@/atoms/emailCheck";
 
 const Auth = () => {
   const UserPlus = icons.userplusIcons;
@@ -12,8 +16,12 @@ const Auth = () => {
   const Tel = icons.addressBook;
   const [signupData, setSignupData] = useRecoilState(signupState);
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
-  const [isEmailAvailable, setEmailAvailable] = useState<boolean | null>(null);
-  const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
+  const [isEmailAvailable, setIsEmailAvailable] = useRecoilState(
+    isEmailAvailableState
+  );
+  const [emailCheckMessage, setEmailCheckMessage] = useRecoilState(
+    emailCheckMessageState
+  );
   const passwordCheckRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,12 +52,35 @@ const Auth = () => {
     return input;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordMatch === false && passwordCheckRef.current) {
       passwordCheckRef.current.focus();
     } else {
       console.log("Submitting data:", signupData);
+    }
+
+    if (!isEmailAvailable || !passwordMatch) {
+      alert(
+        "이메일 중복 체크를 완료하거나, 비밀번호가 일치하는지 확인해주세요."
+      );
+      return;
+    }
+    // if (!passwordMatch) {
+    //   alert(
+    //     "이메일 중복 체크를 완료하거나, 비밀번호가 일치하는지 확인해주세요."
+    //   );
+    //   return;
+    // }
+    // console.log("Submitting data:", signupData);
+    try {
+      const res = await axios.post(
+        `https://applemango.store/jwt-login/join`,
+        signupData
+      );
+      console.log("Response =>", res.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -59,10 +90,10 @@ const Auth = () => {
         `https://applemango.store/jwt-login/join/${signupData.email}`
       );
       if (res.data) {
-        setEmailAvailable(true);
+        setIsEmailAvailable(true);
         setEmailCheckMessage("사용 가능");
       } else {
-        setEmailAvailable(false);
+        setIsEmailAvailable(false);
         setEmailCheckMessage("중복");
       }
     } catch (error) {
@@ -71,7 +102,7 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    setEmailAvailable(null);
+    setIsEmailAvailable(null);
     setEmailCheckMessage("");
   }, [signupData.email]);
 
@@ -145,8 +176,8 @@ const Auth = () => {
               <input
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
-                name="name"
-                value={signupData.name}
+                name="nickName"
+                value={signupData.nickName}
                 onChange={handleInputChange}
                 placeholder="이름을 입력해주세요."
               />
@@ -158,8 +189,8 @@ const Auth = () => {
               <input
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
-                name="phone"
-                value={signupData.phone}
+                name="phoneNumber"
+                value={signupData.phoneNumber}
                 onChange={handleInputChange}
                 placeholder="번호를 입력해주세요."
               />
