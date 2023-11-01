@@ -1,7 +1,8 @@
 import icons from "@/assets/icons/icon";
 import { signupState } from "@/atoms/signup";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
+import axios from "axios";
 
 const Auth = () => {
   const UserPlus = icons.userplusIcons;
@@ -11,6 +12,8 @@ const Auth = () => {
   const Tel = icons.addressBook;
   const [signupData, setSignupData] = useRecoilState(signupState);
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
+  const [isEmailAvailable, setEmailAvailable] = useState<boolean | null>(null);
+  const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
   const passwordCheckRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +53,28 @@ const Auth = () => {
     }
   };
 
+  const handleEmailCheck = async () => {
+    try {
+      const res = await axios.get(
+        `https://applemango.store/jwt-login/join/${signupData.email}`
+      );
+      if (res.data) {
+        setEmailAvailable(true);
+        setEmailCheckMessage("사용 가능");
+      } else {
+        setEmailAvailable(false);
+        setEmailCheckMessage("중복");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    setEmailAvailable(null);
+    setEmailCheckMessage("");
+  }, [signupData.email]);
+
   return (
     <div className="bg-primary-black">
       <div className="flex flex-col min-h-screen justify-center items-center">
@@ -71,6 +96,9 @@ const Auth = () => {
                 onChange={handleInputChange}
                 placeholder="이메일을 입력해주세요."
               />
+              <button onClick={handleEmailCheck}>중복 체크</button>
+
+              {emailCheckMessage && <span>{emailCheckMessage}</span>}
             </div>
             <div className="password">
               <div className="absolute z-30 ml-4 mt-3">

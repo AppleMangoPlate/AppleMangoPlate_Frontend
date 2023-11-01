@@ -7,6 +7,7 @@ import icons from "@/assets/icons/icon";
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
+  console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}`);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

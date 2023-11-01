@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
@@ -26,35 +26,43 @@ export default NextAuth({
         if (!credentials) {
           throw new Error("잘못된 입력값으로 인한 오류가 발생했습니다.");
         }
-        const { email, password } = credentials;
-        const exUser = {
-          id: "1",
-          name: "김철수",
-          email: "test@naver.com",
 
-          image: "",
-        };
-        return exUser;
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+          }
+        );
+        const user = await res.json();
+        console.log(user);
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token }) {
-      return token;
+    async jwt({ token, user }) {
+      return { ...token, ...user };
     },
-    async session({ session }) {
-      console.log("Provider에게 넘겨받은 정보", session);
-
-      const exUser = {
-        // idx: 2,
-        id: "2",
-        name: "이철수",
-        email: "lee@naver.com",
-        image: "",
-      };
-      session.user = exUser;
-
+    async session({ session, token }) {
+      session.user = token as any;
       return session;
     },
   },
+  pages: {
+    signIn: "/auth",
+  },
 });
+
+export { handler as GET, handler as POST };
