@@ -51,7 +51,7 @@ const Auth = () => {
     }
     return input;
   };
-
+  // console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/join`);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordMatch === false && passwordCheckRef.current) {
@@ -66,13 +66,6 @@ const Auth = () => {
       );
       return;
     }
-    // if (!passwordMatch) {
-    //   alert(
-    //     "이메일 중복 체크를 완료하거나, 비밀번호가 일치하는지 확인해주세요."
-    //   );
-    //   return;
-    // }
-    // console.log("Submitting data:", signupData);
     try {
       const res = await axios.post(
         `https://applemango.store/jwt-login/join`,
@@ -84,11 +77,10 @@ const Auth = () => {
     }
   };
 
-  const handleEmailCheck = async () => {
+  const handleEmailCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
-      const res = await axios.get(
-        `https://applemango.store/jwt-login/join/${signupData.email}`
-      );
+      const res = await axios.get(`/jwt-login/join/${signupData.email}`);
       if (res.data) {
         setIsEmailAvailable(true);
         setEmailCheckMessage("사용 가능");
