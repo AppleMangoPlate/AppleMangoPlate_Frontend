@@ -4,10 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
   providers: [
-    KakaoProvider({
-      clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID as string,
-      clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET as string,
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
