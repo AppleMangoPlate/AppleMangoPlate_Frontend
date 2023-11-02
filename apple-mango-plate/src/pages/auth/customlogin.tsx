@@ -9,12 +9,15 @@ import {
 } from "@/atoms/emailCheck";
 import { useRouter } from "next/router";
 
+const IconComponents = {
+  UserPlus: icons.userplusIcons,
+  SubmitArrow: icons.arrowRight,
+  User: icons.userIcons,
+  Lock: icons.lockIcons,
+  Tel: icons.addressBook,
+};
+
 const Auth = () => {
-  const UserPlus = icons.userplusIcons;
-  const SubmitArrow = icons.arrowRight;
-  const User = icons.userIcons;
-  const Lock = icons.lockIcons;
-  const Tel = icons.addressBook;
   const router = useRouter();
   const [signupData, setSignupData] = useRecoilState(signupState);
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
@@ -28,21 +31,13 @@ const Auth = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "password" || name === "passwordCheck") {
-      setPasswordMatch(null);
-    }
+    setPasswordMatch(
+      name === "password" || name === "passwordCheck" ? null : passwordMatch
+    );
+    setSignupData((prevData) => ({ ...prevData, [name]: value }));
 
-    setSignupData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    // false일때 회원가입 버튼을 누르면 passwordCheck input으로 돌아오도록 설정하기
     if (name === "passwordCheck") {
-      if (value === signupData.password) {
-        setPasswordMatch(true);
-      } else {
-        setPasswordMatch(false);
-      }
+      setPasswordMatch(value === signupData.password);
     }
   };
 
@@ -106,13 +101,13 @@ const Auth = () => {
     <div className="bg-primary-black">
       <div className="flex flex-col min-h-screen justify-center items-center">
         <div>
-          <UserPlus color="#ffffff" />
+          <IconComponents.UserPlus color="#ffffff" />
         </div>
         <div className="mt-10 xl:w-1/2 lg:w-1/2 sm:w-full md:w-full">
           <form className="bg-primary-black py-2 mb-5" onSubmit={handleSubmit}>
             <div className="email">
               <div className="absolute z-30 ml-5 mt-3">
-                <User size={34} color="#ffffff" />
+                <IconComponents.User size={34} color="#ffffff" />
               </div>
 
               <input
@@ -130,7 +125,7 @@ const Auth = () => {
             </div>
             <div className="password">
               <div className="absolute z-30 ml-4 mt-3">
-                <Lock size={40} color="#ffffff" />
+                <IconComponents.Lock size={40} color="#ffffff" />
               </div>
               <input
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow placeholder:text-sm"
@@ -144,7 +139,7 @@ const Auth = () => {
             </div>
             <div className="passwordCheck mb-20">
               <div className="absolute z-30 ml-4 mt-3">
-                <Lock size={40} color="#ffffff" />
+                <IconComponents.Lock size={40} color="#ffffff" />
               </div>
               <input
                 className={`text-black  relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow placeholder:text-sm`}
@@ -170,7 +165,7 @@ const Auth = () => {
             </div>
             <div className="name">
               <div className="absolute z-30 ml-5 mt-3">
-                <User size={34} color="#FB980D" />
+                <IconComponents.User size={34} color="#FB980D" />
               </div>
               <input
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
@@ -184,7 +179,7 @@ const Auth = () => {
             </div>
             <div className="tel">
               <div className="absolute z-30 ml-4 mt-3">
-                <Tel size={40} color="#FB980D" />
+                <IconComponents.Tel size={40} color="#FB980D" />
               </div>
               <input
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
@@ -203,7 +198,7 @@ const Auth = () => {
           onClick={handleSubmit}
           type="submit"
         >
-          <SubmitArrow size={80} color="#FB980D" />
+          <IconComponents.SubmitArrow size={80} color="#FB980D" />
         </button>
       </div>
     </div>

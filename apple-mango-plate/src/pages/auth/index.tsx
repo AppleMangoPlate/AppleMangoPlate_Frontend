@@ -8,9 +8,6 @@ import icons from "@/assets/icons/icon";
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
-  // console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`);
-  // console.log(process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!);
-  // console.log(process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -73,12 +70,7 @@ const Auth = () => {
         <div className="w-2/3 border-[1px] border-[#787822]"></div>
 
         <div className="flex flex-col mt-4 gap-y-3 w-1/2">
-          <button
-            className="flex items-center justify-center bg-[#f7f72f] text-[black] w-full h-10 rounded-3xl"
-            onClick={() =>
-              signIn("kakao", { redirect: true, callbackUrl: "/" })
-            }
-          >
+          <button className="flex items-center justify-center bg-[#f7f72f] text-[black] w-full h-10 rounded-3xl">
             <KakaoIcon size={24} color="black" />
             <span className="ml-2">kakaoTalk</span>
           </button>
