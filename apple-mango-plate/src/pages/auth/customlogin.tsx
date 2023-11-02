@@ -7,6 +7,7 @@ import {
   emailCheckMessageState,
   isEmailAvailableState,
 } from "@/atoms/emailCheck";
+import { useRouter } from "next/router";
 
 const Auth = () => {
   const UserPlus = icons.userplusIcons;
@@ -14,6 +15,7 @@ const Auth = () => {
   const User = icons.userIcons;
   const Lock = icons.lockIcons;
   const Tel = icons.addressBook;
+  const router = useRouter();
   const [signupData, setSignupData] = useRecoilState(signupState);
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
   const [isEmailAvailable, setIsEmailAvailable] = useRecoilState(
@@ -56,24 +58,26 @@ const Auth = () => {
     e.preventDefault();
     if (passwordMatch === false && passwordCheckRef.current) {
       passwordCheckRef.current.focus();
-    } else {
-      console.log("Submitting data:", signupData);
-    }
-
-    if (!isEmailAvailable || !passwordMatch) {
-      alert(
-        "이메일 중복 체크를 완료하거나, 비밀번호가 일치하는지 확인해주세요."
-      );
+      alert("비밀번호가 일치하지 않습니다.");
       return;
     }
+
+    if (!isEmailAvailable) {
+      alert("이메일 중복 체크를 완료해주세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    Object.keys(signupData).forEach((key) => {
+      formData.append(key, (signupData as any)[key]);
+    });
     try {
-      const res = await axios.post(
-        `https://applemango.store/jwt-login/join`,
-        signupData
-      );
+      const res = await axios.post(`/jwt-login/join`, formData);
       console.log("Response =>", res.data);
+      router.push("/auth");
     } catch (error) {
       console.error(error);
+      alert("회원가입에 실패하였습니다.");
     }
   };
 
@@ -86,7 +90,7 @@ const Auth = () => {
         setEmailCheckMessage("사용 가능");
       } else {
         setIsEmailAvailable(false);
-        setEmailCheckMessage("중복");
+        setEmailCheckMessage("이메일 중복입니다.");
       }
     } catch (error) {
       console.error(error);
@@ -115,6 +119,7 @@ const Auth = () => {
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow placeholder:text-sm"
                 type="text"
                 name="email"
+                required
                 value={signupData.email}
                 onChange={handleInputChange}
                 placeholder="이메일을 입력해주세요."
@@ -131,6 +136,7 @@ const Auth = () => {
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-orange placeholder-primary-yellow placeholder:text-sm"
                 type="password"
                 name="password"
+                required
                 value={signupData.password}
                 onChange={handleInputChange}
                 placeholder="비밀번호를 입력해주세요."
@@ -144,6 +150,7 @@ const Auth = () => {
                 className={`text-black  relative h-16 pl-20 py-[2px] w-full mr-1 ${passwordCheckCss()} placeholder-primary-yellow placeholder:text-sm`}
                 type="password"
                 name="passwordCheck"
+                required
                 ref={passwordCheckRef}
                 value={signupData.passwordCheck}
                 onChange={handleInputChange}
@@ -169,6 +176,7 @@ const Auth = () => {
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
                 name="nickName"
+                required
                 value={signupData.nickName}
                 onChange={handleInputChange}
                 placeholder="이름을 입력해주세요."
@@ -182,6 +190,7 @@ const Auth = () => {
                 className="text-[black] relative h-16 pl-20 py-[2px] w-full mr-1 bg-primary-yellow placeholder-primary-orange placeholder:text-sm"
                 type="text"
                 name="phoneNumber"
+                required
                 value={signupData.phoneNumber}
                 onChange={handleInputChange}
                 placeholder="번호를 입력해주세요."
