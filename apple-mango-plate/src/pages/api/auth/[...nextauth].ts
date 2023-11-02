@@ -23,19 +23,16 @@ const handler = NextAuth({
           throw new Error("잘못된 입력값으로 인한 오류가 발생했습니다.");
         }
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
-          }
-        );
+        const res = await fetch(`/jwt-login/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
+        });
         const user = await res.json();
         console.log(user);
 
