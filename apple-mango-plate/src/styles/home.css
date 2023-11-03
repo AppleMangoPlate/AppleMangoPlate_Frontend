@@ -64,8 +64,11 @@
 
 .home-search-modal-container {
   @apply absolute flex-col bg-[rgba(0,0,0,0.5)] w-full h-[100vh] z-30;
+}
+.home-search-modal-box {
+  @apply flex justify-center bg-background w-[40%] h-80 rounded-t-[1.5rem] pt-4 outline-none mt-2;
+}
 
-  .home-search-modal-input {
-    @apply flex justify-center bg-background w-[40%] h-80 rounded-t-[1.5rem] pl-6 outline-none mt-2;
-  }
+.home-search-modal-input {
+  @apply flex bg-background h-16 w-[90%] pl-6 outline-none border-b-4 border-white;
 }
