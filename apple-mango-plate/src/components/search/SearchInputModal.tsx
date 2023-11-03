@@ -1,6 +1,5 @@
-import { axiosInstance } from "@/apis/axiosInstance";
-import axios from "axios";
-import React from "react";
+import { getKeywordSearch } from "@/apis/search";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 interface props {
@@ -9,13 +8,23 @@ interface props {
 
 export default function SearchInputModal({ setModal }: props) {
   const [searchInput, setSearchInput] = React.useState("");
-
-  const handleSearch = async () => {
-    try {
-      const res = await axiosInstance.get(`/search/${searchInput}/한식`);
-    } catch (err) {
-      console.log(err);
+  const [searchEnabled, setSearchEnabled] = React.useState(false);
+  const { data, isError, isLoading } = useQuery(
+    "search",
+    () => getKeywordSearch(searchInput, "한식"),
+    {
+      enabled: searchEnabled,
     }
+  );
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
+
+  const handleSearch = () => {
+    setSearchEnabled(true);
   };
 
   return (
@@ -31,6 +40,7 @@ export default function SearchInputModal({ setModal }: props) {
           <input
             className="home-search-modal-input"
             placeholder="지역, 식당 또는 음식"
+            autoFocus={true}
             onChange={(e) => setSearchInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch();
