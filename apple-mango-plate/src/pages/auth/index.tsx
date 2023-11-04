@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import icons from "@/assets/icons/icon";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { emailState, passwordState } from "@/atoms/auth";
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useRecoilState(emailState);
+  const [password, setPassword] = useRecoilState(passwordState);
 
   function joinHandler() {
     try {
@@ -24,14 +25,12 @@ const Auth = () => {
           console.log("res.data.accessToken : " + res.headers);
           const accessToken = res.headers["access-token"];
           const refreshToken = res.headers["refresh-token"];
-          console.log("Access Token: ", accessToken);
-          console.log("Refresh Token: ", refreshToken);
 
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
 
           axios.defaults.headers.common["Authorization"] = "Bearer " + res.data;
-          router.push("/");
+          // router.push("/");
         })
         .catch((ex) => {
           console.log("login requset fail : " + ex);
