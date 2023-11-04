@@ -3,10 +3,10 @@ import Link from "next/link";
 import { useState } from "react";
 import icons from "@/assets/icons/icon";
 import axios from "axios";
-
+import { useRouter } from "next/router";
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
-
+  const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -15,23 +15,29 @@ const Auth = () => {
       let data = { email: email, password: password };
 
       axios
-        .post(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`, data, {
+        .post(`/jwt-login/login`, data, {
           headers: {
             "Content-Type": `application/json`,
           },
         })
         .then((res) => {
-          console.log("res.data.accessToken : " + res.data);
+          console.log("res.data.accessToken : " + res.headers);
+          const accessToken = res.headers["access-token"];
+          const refreshToken = res.headers["refresh-token"];
+          console.log("Access Token: ", accessToken);
+          console.log("Refresh Token: ", refreshToken);
+
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+
           axios.defaults.headers.common["Authorization"] = "Bearer " + res.data;
+          router.push("/");
         })
         .catch((ex) => {
           console.log("login requset fail : " + ex);
         })
         .finally(() => {
           console.log("login request end");
-          console.log("User Email:", email);
-          console.log("User Password:", password);
-          console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`);
         });
     } catch (e) {
       console.log(e);
@@ -52,6 +58,7 @@ const Auth = () => {
               id="email"
               required
               value={email}
+              placeholder="test@gmail.com"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -64,6 +71,7 @@ const Auth = () => {
               id="password"
               required
               type="password"
+              placeholder="test"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
