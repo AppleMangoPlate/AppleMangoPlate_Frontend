@@ -5,6 +5,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { emailState, passwordState } from "@/atoms/auth";
+import Image from "next/image";
+import LogoImg from "@/assets/images/Logo.png";
+
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
@@ -46,9 +49,10 @@ const Auth = () => {
   return (
     <div className="bg-primary-black min-h-screen flex justify-center items-center">
       <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
+        <Image src={LogoImg} alt="Logo" width={120} height={120} />
         <h2 className="text-[black] text-2xl mb-6">Login</h2>
-        <form className="bg-primary-black py-2 flex flex-col gap-3 w-2/3 rounded-3xl mb-5">
-          <div className="flex items-center gap-3">
+        <form className="flex flex-col gap-3 w-2/3  mb-5">
+          <div className="bg-primary-black flex items-center gap-3 rounded-3xl py-2">
             <label className="block w-4 text-sm ml-2" htmlFor="email">
               ID
             </label>
@@ -61,7 +65,7 @@ const Auth = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="bg-primary-black flex gap-3 items-center rounded-3xl py-2">
             <label className="block w-4 text-sm ml-2" htmlFor="password">
               PW
             </label>

@@ -21,6 +21,7 @@ const Auth = () => {
   const router = useRouter();
   const [signupData, setSignupData] = useRecoilState(signupState);
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [isEmailAvailable, setIsEmailAvailable] = useRecoilState(
     isEmailAvailableState
   );
@@ -31,6 +32,7 @@ const Auth = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setPasswordMatch(
       name === "password" || name === "passwordCheck" ? null : passwordMatch
     );
@@ -38,6 +40,14 @@ const Auth = () => {
 
     if (name === "passwordCheck") {
       setPasswordMatch(value === signupData.password);
+    }
+  };
+  const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (!value.includes("@")) {
+      setEmailError("@을 포함해야합니다.");
+    } else {
+      setEmailError(null);
     }
   };
 
@@ -101,12 +111,10 @@ const Auth = () => {
   return (
     <div className="bg-primary-black">
       <div className="flex flex-col min-h-screen justify-center items-center">
-        <div>
-          <IconComponents.UserPlus color="#ffffff" />
-        </div>
+        <div>{/* <IconComponents.UserPlus size={32} color="#ffffff" /> */}</div>
         <div className="mt-10 xl:w-1/2 lg:w-1/2 sm:w-full md:w-full">
           <form className="bg-primary-black py-2 mb-5" onSubmit={handleSubmit}>
-            <div className="email">
+            <div className="email relative">
               <div className="absolute z-30 ml-5 mt-3">
                 <IconComponents.User size={34} color="#ffffff" />
               </div>
@@ -118,11 +126,33 @@ const Auth = () => {
                 required
                 value={signupData.email}
                 onChange={handleInputChange}
+                onBlur={handleEmailBlur}
                 placeholder="이메일을 입력해주세요."
               />
-              <button onClick={handleEmailCheck}>중복 체크</button>
+              <div className="relative">
+                {emailError && (
+                  <div className="speech-bubble absolute -top-[90px] left-2 transition ease-in-out duration-500">
+                    <p className="text-red-500">{emailError}</p>
+                  </div>
+                )}
+              </div>
 
-              {emailCheckMessage && <span>{emailCheckMessage}</span>}
+              <button
+                className={`absolute right-4 top-3 p-2 rounded-2xl ${
+                  isEmailAvailable === true
+                    ? "text-blue-500"
+                    : isEmailAvailable === false
+                    ? "text-red-500"
+                    : ""
+                }`}
+                onClick={handleEmailCheck}
+              >
+                {isEmailAvailable === true
+                  ? "사용 가능"
+                  : isEmailAvailable === false
+                  ? "재입력"
+                  : "중복확인"}
+              </button>
             </div>
             <div className="password">
               <div className="absolute z-30 ml-4 mt-3">

@@ -1,0 +1,9 @@
+.speech-bubble {
+  position: relative;
+  background: #000000;
+  border-radius: 10px;
+  width: 170px;
+  padding: 4px 0px;
+  text-align: center;
+  z-index: 3;
+}
