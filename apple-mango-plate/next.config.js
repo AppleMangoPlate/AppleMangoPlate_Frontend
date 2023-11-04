@@ -6,6 +6,8 @@ const nextConfig = {
       {
         source: "/:path*",
         destination: `https://applemango.store/:path*`,
+        // destination: `http://52.78.86.184:8080/:path*`,
+        // destination: `http://3.39.118.171:8080/:path*`,
       },
     ];
   },

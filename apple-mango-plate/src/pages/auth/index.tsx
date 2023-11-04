@@ -1,15 +1,42 @@
 "use client";
-
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import icons from "@/assets/icons/icon";
+import axios from "axios";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  function joinHandler() {
+    try {
+      let data = { email: email, password: password };
+
+      axios
+        .post(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`, data, {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => {
+          console.log("res.data.accessToken : " + res.data);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + res.data;
+        })
+        .catch((ex) => {
+          console.log("login requset fail : " + ex);
+        })
+        .finally(() => {
+          console.log("login request end");
+          console.log("User Email:", email);
+          console.log("User Password:", password);
+          console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/login`);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className="bg-primary-black min-h-screen flex justify-center items-center">
@@ -23,6 +50,7 @@ const Auth = () => {
             <input
               className="text-[black] py-[2px] pl-2 w-full mr-1 rounded-3xl bg-primary-yellow"
               id="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -34,6 +62,7 @@ const Auth = () => {
             <input
               className="text-[black] py-[2px] pl-2 w-full mr-1 rounded-3xl bg-primary-yellow"
               id="password"
+              required
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -44,6 +73,7 @@ const Auth = () => {
         <button
           className="bg-primary-black py-2 flex justify-center w-2/3 rounded-3xl my-5"
           type="submit"
+          onClick={joinHandler}
         >
           로그인
         </button>

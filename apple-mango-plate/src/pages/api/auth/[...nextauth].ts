@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({

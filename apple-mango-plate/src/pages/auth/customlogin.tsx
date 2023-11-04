@@ -48,7 +48,7 @@ const Auth = () => {
     }
     return input;
   };
-  // console.log(`${process.env.NEXT_PUBLIC_AUTH_URL}/jwt-login/join`);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordMatch === false && passwordCheckRef.current) {
@@ -66,6 +66,7 @@ const Auth = () => {
     Object.keys(signupData).forEach((key) => {
       formData.append(key, (signupData as any)[key]);
     });
+    console.log(formData);
     try {
       const res = await axios.post(`/jwt-login/join`, formData);
       console.log("Response =>", res.data);
