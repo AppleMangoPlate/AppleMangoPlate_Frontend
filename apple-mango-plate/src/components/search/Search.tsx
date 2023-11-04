@@ -1,25 +1,28 @@
 import { useGetKeywordSearch } from "@/apis/search/search";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import SearchThumbnail from "./SearchThumbnail";
 import { Store } from "@/types/store.dto";
+import CategoryBar from "./CategoryBar";
 
 export default function Search() {
   const router = useRouter();
   const { keyword } = router.query;
-  const { data, isLoading } = useGetKeywordSearch(keyword as string, "한식", 1);
+  const [page, setPage] = useState(1);
+  const { data, isLoading } = useGetKeywordSearch(
+    keyword as string,
+    "한식",
+    page
+  );
+
+  /*
+   * 로딩 스켈레톤 추가하기..
+   */
 
   return (
-    <div className="flex w-full justify-center">
-      {isLoading && ( // 스켈레톤 적용 해야됨
-        <div className="flex w-full h-full justify-center items-center">
-          로딩중
-        </div>
-      )}
-      <div
-        className="grid md:grid-cols-2 grid-cols-1 gap-x-20 gap-y-14
-                      justify-items-center w-[50vw] min-w-max"
-      >
+    <div className="flex w-full items-center flex-col">
+      <CategoryBar />
+      <div className="search-container">
         {data?.map((item: Store, key: number) => (
           <SearchThumbnail key={key} {...item} />
         ))}

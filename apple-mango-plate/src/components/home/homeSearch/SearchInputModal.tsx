@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { use, useEffect } from "react";
+import React from "react";
 
 interface props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
