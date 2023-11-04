@@ -11,7 +11,9 @@ const config: Config = {
       colors: {
         background: "#fff6e9",
         background_gray: "#333333",
-        main_color: "F3B744",
+        signature_orange: "#FB9B0D",
+        signature_brown: "#66481A",
+        main_color: "#F3B744",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

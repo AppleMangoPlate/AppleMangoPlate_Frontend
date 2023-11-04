@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./home.css";
+@import "./search.css";
 
 :root {
   --background-start-rgb: #fff6e9;

@@ -1,30 +1,19 @@
-import { getKeywordSearch } from "@/apis/search";
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { use, useEffect } from "react";
 
 interface props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SearchInputModal({ setModal }: props) {
+  const router = useRouter();
   const [searchInput, setSearchInput] = React.useState("");
-  const [searchEnabled, setSearchEnabled] = React.useState(false);
-  const { data, isError, isLoading } = useQuery(
-    "search",
-    () => getKeywordSearch(searchInput, "한식"),
-    {
-      enabled: searchEnabled,
-    }
-  );
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
 
   const handleSearch = () => {
-    setSearchEnabled(true);
+    if (!searchInput || searchInput[0] === " ") return;
+    setModal(false);
+    router.push(`/search/${searchInput}`);
   };
 
   return (

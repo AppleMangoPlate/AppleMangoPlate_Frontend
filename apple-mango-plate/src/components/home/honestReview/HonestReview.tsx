@@ -1,4 +1,4 @@
-import Search from "@/components/search/Search";
+import Search from "@/components/home/homeSearch/Search";
 import Image from "next/image";
 import React from "react";
 import logo from "../../../../public/logo.png";

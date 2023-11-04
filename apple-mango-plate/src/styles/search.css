@@ -1,0 +1,14 @@
+.search-container {
+  @apply flex w-full h-full flex-col text-signature_brown;
+
+  .search-image-wrapper {
+    @apply flex relative w-[90%] h-[25vh] min-h-[200px] min-w-[250px] aspect-video border-signature_orange border-4;
+  }
+
+  .search-title {
+    @apply text-xl font-bold mt-5;
+  }
+  .search-text {
+    @apply text-sm font-thin mt-3;
+  }
+}
