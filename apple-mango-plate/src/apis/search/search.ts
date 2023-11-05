@@ -5,6 +5,7 @@ import { Store } from "@/types/store.dto";
 //const enum SearchType {
 //  "한식" = "한식",
 //  "양식" = "양식",
+
 //}
 
 const fillterFn = (data: any) => {

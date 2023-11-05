@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import SearchThumbnail from "./SearchThumbnail";
 import { Store } from "@/types/store.dto";
-import CategoryBar from "./CategoryBar";
+import CategoryBar from "./category/CategoryBar";
 
 export default function Search() {
   const router = useRouter();
