@@ -1,6 +1,6 @@
-import { Store } from "@/types/store.dto";
 import Image from "next/image";
 import React from "react";
+import { Store } from "@/types/store.dto";
 
 export default function SearchThumbnail(props: Store) {
   const { category_name, place_name, road_address_name } = props;
