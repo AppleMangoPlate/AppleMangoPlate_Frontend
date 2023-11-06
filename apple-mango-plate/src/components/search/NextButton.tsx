@@ -1,6 +1,8 @@
-import React from "react";
+interface props {
+  onClick: () => void;
+}
 
-export default function NextButton({ onClick }) {
+export default function NextButton({ onClick }: props) {
   return (
     <div className="px-4">
       <svg

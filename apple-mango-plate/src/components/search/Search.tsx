@@ -1,13 +1,11 @@
-import { useGetKeywordSearch } from "@/apis/search/search";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
-import SearchThumbnail from "./SearchThumbnail";
 import { Store } from "@/types/store.dto";
+import { useSearch } from "@/hooks/search/useSearch";
+import SearchThumbnail from "./SearchThumbnail";
 import CategoryBar from "./category/CategoryBar";
 import SearchBar from "./SearchBar";
 import PrevButton from "./PrevButton";
 import NextButton from "./NextButton";
-import { useSearch } from "@/hooks/search/useSearch";
 import Loading from "./Loading";
 
 export default function Search() {

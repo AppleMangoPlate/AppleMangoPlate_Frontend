@@ -1,6 +1,6 @@
 import React from "react";
-import location_logo from "../../../../public/location_logo.png";
-import MainThumbnail from "../utils/MainThumbnail";
+import location_logo from "/public/location_logo.png";
+import MainThumbnail from "@/components/home/utils/MainThumbnail";
 import Image from "next/image";
 
 export default function ReliableRating() {

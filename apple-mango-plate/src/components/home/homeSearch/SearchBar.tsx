@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 interface props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   modal: boolean;

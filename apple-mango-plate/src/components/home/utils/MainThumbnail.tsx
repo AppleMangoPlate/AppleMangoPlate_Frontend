@@ -1,5 +1,5 @@
 import React from "react";
-import restaurant from "../../../../public/main_restaurant.png";
+import restaurant from "/public/main_restaurant.png";
 import Image from "next/image";
 
 interface props {

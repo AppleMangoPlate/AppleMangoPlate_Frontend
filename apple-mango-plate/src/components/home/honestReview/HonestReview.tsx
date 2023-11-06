@@ -1,7 +1,6 @@
 import Search from "@/components/home/homeSearch/Search";
 import Image from "next/image";
-import React from "react";
-import logo from "../../../../public/logo.png";
+import logo from "/public/logo.png";
 import MainThumbnail from "@/components/home/utils/MainThumbnail";
 
 export default function HonestReview() {

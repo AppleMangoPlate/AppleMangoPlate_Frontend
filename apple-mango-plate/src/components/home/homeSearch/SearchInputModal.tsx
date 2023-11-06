@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { useState } from "react";
 
 interface props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,7 +7,7 @@ interface props {
 
 export default function SearchInputModal({ setModal }: props) {
   const router = useRouter();
-  const [searchInput, setSearchInput] = React.useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = () => {
     if (!searchInput || searchInput[0] === " ") return;
