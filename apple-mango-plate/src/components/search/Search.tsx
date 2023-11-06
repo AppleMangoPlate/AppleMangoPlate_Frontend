@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 import PrevButton from "./PrevButton";
 import NextButton from "./NextButton";
 import { useSearch } from "@/hooks/search/useSearch";
+import Loading from "./Loading";
 
 export default function Search() {
   const router = useRouter();
@@ -25,11 +26,6 @@ export default function Search() {
     handleSearch,
   } = useSearch(keyword as string);
 
-  /*
-   * 로딩 스켈레톤 추가하기..
-   * 검색결과 없을 때 보여줄 페이지.. 만들기..
-   */
-
   return (
     <div className="search-container">
       <SearchBar handleSearch={handleSearch} searchKeyword={searchKeyword} />
@@ -38,6 +34,7 @@ export default function Search() {
         changeCategory={handleChangeCategory}
         clickedCategory={category}
       />
+      {isLoading && <Loading />}
       {data?.length === 0 && (
         <div className="search-no-data-container">
           <h1>{keyword}에 대한 검색 결과가 없습니다.</h1>

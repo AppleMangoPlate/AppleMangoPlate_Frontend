@@ -66,3 +66,17 @@
 .categorybar-slice {
   @apply mx-3 text-signature_orange text-base;
 }
+
+.skeleton {
+  border-radius: 0.25rem;
+  animation: skeleton-loading 1.5s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 90%);
+  }
+}
