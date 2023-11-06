@@ -38,10 +38,16 @@ export default function Search() {
         changeCategory={handleChangeCategory}
         clickedCategory={category}
       />
+      {data?.length === 0 && (
+        <div className="search-no-data-container">
+          <h1>{keyword}에 대한 검색 결과가 없습니다.</h1>
+        </div>
+      )}
       <section className="search-wrapper">
-        {data?.map((item: Store, key: number) => (
-          <SearchThumbnail key={key} {...item} />
-        ))}
+        {!isLoading &&
+          data?.map((item: Store, key: number) => (
+            <SearchThumbnail key={key} {...item} />
+          ))}
       </section>
       <div className="search-pagenation-btn-container">
         {page !== 1 && <PrevButton onClick={handlePrevPage} />}
