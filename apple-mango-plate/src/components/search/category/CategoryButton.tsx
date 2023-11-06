@@ -15,7 +15,6 @@ export default function CategoryButton({
     <button className="categorybtn-container">
       <span
         className={`justify-center text-lg hover:text-xl hover:font-bold hover:text-amber-800
-        
         ${
           clickedCategory === category_name &&
           "font-bold text-signature_brown text-xl"

@@ -2,12 +2,6 @@ import { useQuery } from "react-query";
 import { axiosSearchInstance } from "../axiosInstance";
 import { Store } from "@/types/store.dto";
 
-//const enum SearchType {
-//  "한식" = "한식",
-//  "양식" = "양식",
-
-//}
-
 const fillterFn = (data: any) => {
   const result: Store[] = data.map((item: any) => {
     const store: Store = {
