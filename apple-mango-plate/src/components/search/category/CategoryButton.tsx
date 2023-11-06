@@ -2,13 +2,13 @@ import React from "react";
 
 interface props {
   category_name: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
   clickedCategory: string;
+  changeCategory: (category: string) => void;
 }
 
 export default function CategoryButton({
   category_name,
-  setCategory,
+  changeCategory,
   clickedCategory,
 }: props) {
   return (
@@ -20,7 +20,7 @@ export default function CategoryButton({
           clickedCategory === category_name &&
           "font-bold text-signature_brown text-xl"
         }`}
-        onClick={() => setCategory(category_name)}
+        onClick={() => changeCategory(category_name)}
       >
         {category_name}
       </span>

@@ -31,7 +31,7 @@ const getKeywordSearch = async (
   page: number
 ) => {
   const res = await axiosSearchInstance.get(
-    `page=${page}&size=10&sort=accuracy&query=${keyword} ${classify}&category_group_code=FD6`
+    `/keyword.json?page=${page}&size=10&sort=accuracy&query=${keyword} ${classify}&category_group_code=FD6`
   );
   return fillterFn(res.data.documents);
 };
@@ -42,7 +42,7 @@ export const useGetKeywordSearch = (
   page: number
 ) => {
   return useQuery(
-    ["getKeywordSearch", keyword, classify],
+    ["getKeywordSearch", keyword, classify, page],
     () => getKeywordSearch(keyword, classify, page),
     {
       enabled: !!keyword && !!classify && !!page,

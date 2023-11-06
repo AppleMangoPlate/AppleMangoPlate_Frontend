@@ -4,12 +4,12 @@ import CategoryButton from "./CategoryButton";
 interface props {
   clickedCategory: string;
   categoryList: string[];
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  changeCategory: (category: string) => void;
 }
 
 export default function CategoryBar({
   categoryList,
-  setCategory,
+  changeCategory,
   clickedCategory,
 }: props) {
   return (
@@ -19,7 +19,7 @@ export default function CategoryBar({
         <CategoryButton
           key={key}
           category_name={category_name}
-          setCategory={setCategory}
+          changeCategory={changeCategory}
           clickedCategory={clickedCategory}
         />
       ))}
