@@ -1,0 +1,74 @@
+.home-main-banner-container {
+  @apply absolute z-10 w-full h-full bg-gradient-to-r from-zinc-900;
+
+  .home-main-banner-title {
+    @apply px-10 z-20 text-2xl font-bold text-white block mt-6;
+  }
+
+  .home-main-banner-bottom-contianer {
+    @apply absolute bottom-12 mx-10  w-[300px] border-b-2 border-white;
+
+    .home-main-banner-bottom-text {
+      @apply text-white text-sm pb-1 flex;
+    }
+  }
+}
+
+.home-review-container {
+  @apply bg-background min-h-[450px] h-fit items-center justify-center flex-col flex;
+
+  .home-review-restaurant-container {
+    @apply grid grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1 gap-y-14
+    pb-10 w-[80vw] h-[50%] flex-grow items-center justify-center;
+
+    .home-review-icon-container {
+      @apply flex flex-col pt-36;
+
+      .home-review-icon-logo {
+        @apply flex md:ml-[58%] w-[4.5vw] min-w-[50px];
+      }
+      .home-review-icon-title {
+        @apply flex w-[20vw] h-[7vw];
+      }
+    }
+  }
+}
+
+.home-rating-container {
+  @apply bg-background_gray min-h-[450px] h-fit items-center justify-center flex-col flex;
+
+  .home-rating-restaurant-container {
+    @apply grid grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1 gap-y-14
+    pb-10 w-[80vw] h-[50%] flex-grow items-center justify-center;
+
+    .home-rating-icon-container {
+      @apply flex flex-col pt-44;
+
+      .home-rating-icon-logo {
+        @apply flex md:ml-[24%] w-[3.5vw] min-w-[50px];
+      }
+      .home-rating-icon-title {
+        @apply flex w-[20vw] h-[7vw];
+      }
+    }
+  }
+}
+
+.home-search-container {
+  @apply flex bg-background_gray w-full h-16 items-center justify-center;
+
+  .home-search-input {
+    @apply flex bg-background w-[40%] h-12 rounded-full pl-6 outline-none items-center;
+  }
+}
+
+.home-search-modal-container {
+  @apply absolute flex-col bg-[rgba(0,0,0,0.5)] w-full h-[100vh] z-30;
+}
+.home-search-modal-box {
+  @apply flex justify-center bg-background w-[40%] h-80 rounded-t-[1.5rem] pt-4 outline-none mt-2;
+}
+
+.home-search-modal-input {
+  @apply flex bg-background h-16 w-[90%] pl-6 outline-none border-b-4 border-white;
+}
