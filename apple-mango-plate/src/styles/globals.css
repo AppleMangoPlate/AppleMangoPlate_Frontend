@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./customlogin.css";
 @import "./home.css";
 @import "./search.css";
 

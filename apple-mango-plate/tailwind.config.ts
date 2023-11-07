@@ -14,6 +14,9 @@ const config: Config = {
         signature_orange: "#FB9B0D",
         signature_brown: "#66481A",
         main_color: "#F3B744",
+        primary-yellow: "rgba(255,246,233)",
+        primary-black: "rgba(51,51,51)",
+        primary-orange: "rgba(251,155,13)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
