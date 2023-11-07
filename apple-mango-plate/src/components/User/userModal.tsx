@@ -1,10 +1,11 @@
-import { userModalToggle } from "@/atoms/users";
+import { userModalToggle, userState } from "@/atoms/users";
 import { useRecoilState } from "recoil";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 const UserModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState<boolean>(userModalToggle);
+  const [user] = useRecoilState(userState);
 
   const router = useRouter();
   const onClose = (des: string) => {
@@ -21,7 +22,9 @@ const UserModal = () => {
               <p>내 정보</p>
             </div>
             <div className="mb-4">
-              <p>추후 USER 정보</p>
+              <p>
+                {user ? user.email + "님 환영합니다" : "로그인이 필요합니다"}
+              </p>
             </div>
             <div className="flex justify-center">
               <Link

@@ -7,12 +7,14 @@ import { useRecoilState } from "recoil";
 import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
+import { userState } from "@/atoms/users";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
   const router = useRouter();
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
+  const [user, setUser] = useRecoilState(userState);
 
   function joinHandler() {
     try {
@@ -33,7 +35,9 @@ const Auth = () => {
           localStorage.setItem("refreshToken", refreshToken);
 
           axios.defaults.headers.common["Authorization"] = "Bearer " + res.data;
-          // router.push("/");
+
+          setUser({ email: email });
+          router.push("/");
         })
         .catch((ex) => {
           console.log("login requset fail : " + ex);
