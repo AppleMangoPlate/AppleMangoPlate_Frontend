@@ -40,7 +40,6 @@ jobs:
         with:
           path: node_modules
           key: npm-pakages-${{ hashFiles('**/pakage-lock.json') }}
-        working-directory: ${{ env.dir }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
