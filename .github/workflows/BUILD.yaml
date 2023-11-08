@@ -2,9 +2,11 @@ name: 'Build Next.js'
 
 on:
   push:
-    branches: [$default-branch]
+    branches: 
+      - dev
   pull_request:
-    branched: [$defalut-branch]
+    branches:
+      - dev
 
 permissions:
   contents: write
