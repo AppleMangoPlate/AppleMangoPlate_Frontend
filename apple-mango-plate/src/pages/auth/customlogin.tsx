@@ -2,12 +2,12 @@ import icons from "@/assets/icons/icon";
 import { signupState } from "@/atoms/signup";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import axios from "axios";
 import {
   emailCheckMessageState,
   isEmailAvailableState,
 } from "@/atoms/emailCheck";
 import { useRouter } from "next/router";
+import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const IconComponents = {
   UserPlus: icons.userplusIcons,
@@ -78,7 +78,7 @@ const Auth = () => {
     });
     console.log(formData);
     try {
-      const res = await axios.post(`/jwt-login/join`, formData);
+      const res = await axiosAWSInstance.post(`/jwt-login/join`, formData);
       console.log("Response =>", res.data);
       router.push("/auth");
     } catch (error) {
@@ -87,10 +87,14 @@ const Auth = () => {
     }
   };
 
+  // console.log(`http://3.39.118.171:8080/server`);  이건 cors에러 안남;; ㄷㄷ
   const handleEmailCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.get(`/jwt-login/join/${signupData.email}`);
+      const res = await axiosAWSInstance.get(
+        `/jwt-login/join/${signupData.email}`
+      );
+      console.log();
       if (res.data) {
         setIsEmailAvailable(true);
         setEmailCheckMessage("사용 가능");

@@ -8,6 +8,7 @@ import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
 import { userState } from "@/atoms/users";
+import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
@@ -20,7 +21,7 @@ const Auth = () => {
     try {
       let data = { email: email, password: password };
 
-      axios
+      axiosAWSInstance
         .post(`/jwt-login/login`, data, {
           headers: {
             "Content-Type": `application/json`,
@@ -34,7 +35,8 @@ const Auth = () => {
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
 
-          axios.defaults.headers.common["Authorization"] = "Bearer " + res.data;
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + accessToken;
 
           setUser({ email: email });
           router.push("/");
