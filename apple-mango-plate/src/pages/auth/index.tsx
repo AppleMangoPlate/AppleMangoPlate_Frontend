@@ -8,7 +8,7 @@ import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
 import { userState } from "@/atoms/users";
-import { axiosAWSInstance } from "@/apis/axiosInstance";
+import { axiosAWSInstance, axiosInstance } from "@/apis/axiosInstance";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
@@ -17,26 +17,55 @@ const Auth = () => {
   const [password, setPassword] = useRecoilState(passwordState);
   const [user, setUser] = useRecoilState(userState);
 
+  // const joinHandler = async () => {
+  //   try {
+  //     let data = { email: email, password: password };
+
+  //     const res = await axios.post(`/jwt-login/login`, data, {
+  //       headers: {
+  //         "Content-Type": `application/json`,
+  //       },
+  //     });
+
+  //     const accessToken = res.headers["access_token"];
+  //     const refreshToken = res.headers["refresh_token"];
+  //     localStorage.setItem("accessToken", accessToken);
+  //     localStorage.setItem("refreshToken", refreshToken);
+
+  //     axios.defaults.headers.common["access_token"] = `Bearer ${accessToken}`;
+  //     console.log(res);
+  //     console.log(accessToken);
+
+  //     router.push("/");
+  //   } catch (e) {
+  //     console.log("login request fail : " + e);
+  //   } finally {
+  //     console.log("login request end");
+  //   }
+  // };
+
   function joinHandler() {
     try {
       let data = { email: email, password: password };
 
-      axiosAWSInstance
-        .post(`/jwt-login/login`, data, {
+      axios
+        .post(`jwt-login/login`, data, {
           headers: {
+            withCredentials: true,
             "Content-Type": `application/json`,
           },
         })
         .then((res) => {
+          const accessToken = res.headers["access_token"];
+          const refreshToken = res.headers["refresh_token"];
           console.log("res.data.accessToken : " + res.headers);
-          const accessToken = res.headers["access-token"];
-          const refreshToken = res.headers["refresh-token"];
+          console.log(refreshToken);
 
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
 
           axios.defaults.headers.common["Authorization"] =
-            "Bearer " + accessToken;
+            "Bearer " + res.headers;
 
           setUser({ email: email });
           router.push("/");
