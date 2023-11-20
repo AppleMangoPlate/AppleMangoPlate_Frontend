@@ -7,7 +7,6 @@ import { useRecoilState } from "recoil";
 import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
-import { userState } from "@/atoms/users";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const Auth = () => {
@@ -15,17 +14,15 @@ const Auth = () => {
   const router = useRouter();
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
-  const [user, setUser] = useRecoilState(userState);
 
   function joinHandler() {
     try {
       let data = { email: email, password: password };
       axios.defaults.withCredentials = true;
 
-      axiosAWSInstance
+      axios
         .post(`/jwt-login/login`, data, {
           headers: {
-            withCredentials: true,
             "Content-Type": `application/json`,
           },
         })
@@ -42,7 +39,6 @@ const Auth = () => {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + res.headers;
 
-          setUser({ email: email });
           router.push("/");
         })
         .catch((ex) => {

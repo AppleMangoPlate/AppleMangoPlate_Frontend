@@ -87,7 +87,6 @@ const Auth = () => {
     }
   };
 
-  // console.log(`http://3.39.118.171:8080/server`);  이건 cors에러 안남;; ㄷㄷ
   const handleEmailCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {

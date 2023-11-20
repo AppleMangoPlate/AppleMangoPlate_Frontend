@@ -3,6 +3,7 @@ import { userModalToggle, userState } from "@/atoms/users";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
+import Link from "next/link";
 
 const UserModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState<boolean>(userModalToggle);
@@ -15,7 +16,6 @@ const UserModal = () => {
     router.push(des);
   };
   const handleLogout = () => {
-    const accessToken = localStorage.getItem("accessToken");
     const email = localStorage.getItem("email");
 
     axiosAWSInstance
@@ -23,7 +23,6 @@ const UserModal = () => {
         data: { email },
       })
       .then((response) => {
-        // 로그아웃 성공 시 처리
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("email");
@@ -33,7 +32,6 @@ const UserModal = () => {
         setIsUserLoggedIn(false);
       })
       .catch((error) => {
-        // 로그아웃 실패 시 처리
         console.error("Logout failed", error);
       });
   };
@@ -51,7 +49,13 @@ const UserModal = () => {
               <p>내 정보</p>
             </div>
             <div className="mb-4">
-              <p>{isUserLoggedIn ? "환영합니다" : "로그인이 필요합니다"}</p>
+              <p>
+                {isUserLoggedIn ? (
+                  <Link href="/mypage">마이페이지</Link>
+                ) : (
+                  "로그인이 필요합니다"
+                )}
+              </p>
             </div>
             <div className="flex justify-center">
               {isUserLoggedIn ? (
