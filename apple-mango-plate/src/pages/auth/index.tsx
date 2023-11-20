@@ -27,6 +27,7 @@ const Auth = () => {
           },
         })
         .then((res) => {
+          console.log(res);
           const accessToken = res.headers["access_token"];
           const refreshToken = res.headers["refresh_token"];
           console.log("res.data.accessToken : " + res.headers);
@@ -35,9 +36,6 @@ const Auth = () => {
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("email", email);
-
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res.headers;
 
           router.push("/");
         })
