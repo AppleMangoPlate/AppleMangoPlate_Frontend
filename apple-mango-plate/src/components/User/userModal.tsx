@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { userModalToggle, userState } from "@/atoms/users";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
+import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const UserModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState<boolean>(userModalToggle);
@@ -14,12 +15,27 @@ const UserModal = () => {
     router.push(des);
   };
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    setUser(null);
-    setModalOpen(false);
-    router.push("/");
-    setIsUserLoggedIn(false);
+    const accessToken = localStorage.getItem("accessToken");
+    const email = localStorage.getItem("email");
+
+    axiosAWSInstance
+      .delete(`/jwt-login/logout`, {
+        data: { email },
+      })
+      .then((response) => {
+        // 로그아웃 성공 시 처리
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("email");
+        setUser(null);
+        setModalOpen(false);
+        router.push("/");
+        setIsUserLoggedIn(false);
+      })
+      .catch((error) => {
+        // 로그아웃 실패 시 처리
+        console.error("Logout failed", error);
+      });
   };
 
   useEffect(() => {

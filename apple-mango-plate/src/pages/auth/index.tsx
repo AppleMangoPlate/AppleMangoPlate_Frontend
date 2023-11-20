@@ -8,7 +8,7 @@ import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
 import { userState } from "@/atoms/users";
-import { axiosAWSInstance, axiosInstance } from "@/apis/axiosInstance";
+import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
@@ -17,39 +17,13 @@ const Auth = () => {
   const [password, setPassword] = useRecoilState(passwordState);
   const [user, setUser] = useRecoilState(userState);
 
-  // const joinHandler = async () => {
-  //   try {
-  //     let data = { email: email, password: password };
-
-  //     const res = await axios.post(`/jwt-login/login`, data, {
-  //       headers: {
-  //         "Content-Type": `application/json`,
-  //       },
-  //     });
-
-  //     const accessToken = res.headers["access_token"];
-  //     const refreshToken = res.headers["refresh_token"];
-  //     localStorage.setItem("accessToken", accessToken);
-  //     localStorage.setItem("refreshToken", refreshToken);
-
-  //     axios.defaults.headers.common["access_token"] = `Bearer ${accessToken}`;
-  //     console.log(res);
-  //     console.log(accessToken);
-
-  //     router.push("/");
-  //   } catch (e) {
-  //     console.log("login request fail : " + e);
-  //   } finally {
-  //     console.log("login request end");
-  //   }
-  // };
-
   function joinHandler() {
     try {
       let data = { email: email, password: password };
+      axios.defaults.withCredentials = true;
 
-      axios
-        .post(`jwt-login/login`, data, {
+      axiosAWSInstance
+        .post(`/jwt-login/login`, data, {
           headers: {
             withCredentials: true,
             "Content-Type": `application/json`,
@@ -63,6 +37,7 @@ const Auth = () => {
 
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
+          localStorage.setItem("email", email);
 
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + res.headers;
