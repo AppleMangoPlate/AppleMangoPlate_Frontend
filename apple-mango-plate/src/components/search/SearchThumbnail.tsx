@@ -1,12 +1,18 @@
 import Image from "next/image";
 import React from "react";
 import { Store } from "@/types/store.dto";
+import { useRouter } from "next/router";
 
 export default function SearchThumbnail(props: Store) {
+  const router = useRouter();
   const { category_name, place_name, road_address_name } = props;
 
+  const handleNavigateStore = () => {
+    router.push(`/store/${place_name}`);
+  };
+
   return (
-    <div className="search-thumbnail-container">
+    <div className="search-thumbnail-container" onClick={handleNavigateStore}>
       <section className="search-thumbnail-image-wrapper">
         <Image
           src="/main_restaurant.png"

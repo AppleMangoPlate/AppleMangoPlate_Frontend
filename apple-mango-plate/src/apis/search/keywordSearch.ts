@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { axiosSearchInstance } from "../axiosInstance";
 import { Store } from "@/types/store.dto";
+import { GetServerSideProps } from "next";
 
 const fillterFn = (data: any) => {
   const result: Store[] = data.map((item: any) => {
@@ -42,4 +43,17 @@ export const useGetKeywordSearch = (
       enabled: !!keyword && !!classify && !!page,
     }
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+}: any) => {
+  const { keyword, classify, page } = query;
+  return {
+    props: {
+      keyword,
+      classify,
+      page,
+    },
+  };
 };
