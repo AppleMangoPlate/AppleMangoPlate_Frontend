@@ -10,11 +10,13 @@ interface Props {
 
 export default function Store({ storeInfo }: Props) {
   return (
-    <div className="w-full flex bg-slate-400 justify-center py-10">
-      <section className="flex w-[500px] md:w-[700px] justify-center flex-col bg-red-300">
+    <div className="w-full flex justify-center py-10">
+      <section className="flex w-[500px] md:w-[700px] justify-center flex-col">
         <PlaceInfo storeInfo={storeInfo} />
-        <PlaceMap />
-        <PlaceReview />
+        <div className="flex relative mt-10 w-full h-fit justify-center items-center flex-col bg-[url('/store_background.png')] bg-cover bg-center">
+          <PlaceMap x={storeInfo.x} y={storeInfo.y} />
+          <PlaceReview />
+        </div>
       </section>
     </div>
   );

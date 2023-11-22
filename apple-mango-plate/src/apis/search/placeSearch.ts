@@ -10,8 +10,8 @@ const storeFillterFn = (data: any) => {
     place_name: data.place_name,
     place_url: data.place_url,
     road_address_name: data.road_address_name,
-    x: data.x,
-    y: data.y,
+    x: Number(data.x),
+    y: Number(data.y),
   };
   return store;
 };

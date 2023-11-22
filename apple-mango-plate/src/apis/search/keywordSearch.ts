@@ -12,8 +12,8 @@ const fillterFn = (data: any) => {
       place_name: item.place_name,
       place_url: item.place_url,
       road_address_name: item.road_address_name,
-      x: item.x,
-      y: item.y,
+      x: Number(item.x),
+      y: Number(item.y),
     };
     return store;
   });
