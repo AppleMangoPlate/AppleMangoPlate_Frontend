@@ -1,7 +1,7 @@
 import React from "react";
 import PlaceInfo from "./PlaceInfo";
 import PlaceMap from "./PlaceMap";
-import PlaceReview from "./PlaceReview";
+import PlaceReview from "./review/PlaceReview";
 import { Store } from "@/types/store.dto";
 
 interface Props {
