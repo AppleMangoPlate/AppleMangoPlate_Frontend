@@ -19,9 +19,7 @@ const UserModal = () => {
     const email = localStorage.getItem("email");
 
     axiosAWSInstance
-      .delete(`/jwt-login/logout`, {
-        data: { email },
-      })
+      .delete(`/jwt-login/logout/${email}`)
       .then((response) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");

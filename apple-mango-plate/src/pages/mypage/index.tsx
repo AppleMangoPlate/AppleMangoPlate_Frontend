@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { myPageState } from "@/atoms/myPageIdx";
 import Layout from "@/components/Layout/layout";
+import { axiosAWSInstance } from "@/apis/axiosInstance";
 
 const MyPage = () => {
   const myPageData = useRecoilValue(myPageState);
@@ -14,13 +15,17 @@ const MyPage = () => {
         const emailData = localStorage.getItem("email");
         const accessToken = localStorage.getItem("accessToken");
 
-        const response = await axios.get(`/user/mypage/${emailData}`, {
-          headers: {
-            access_token: `${accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_AWS_SERVER}/user/mypage/${emailData}`,
+          {
+            headers: {
+              access_token: `${accessToken}`,
+            },
+          }
+        );
+
         const { id, email, nickName, role, phoneNumber, profileImage } =
-          response.data;
+          response.data.result;
 
         setMyPageData({
           ...myPageData,
