@@ -1,20 +1,30 @@
-import axios from "axios";
 import { axiosAWSInstance } from "../axiosInstance";
+import { getCookie } from "cookies-next";
 
-export const MyPageData = async (emailData: string, accessToken: string) => {
+export const getMyPage = async () => {
+  const emailData = localStorage.getItem("email");
+  const accessToken = getCookie("accessToken");
+
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_AWS_SERVER}/user/mypage/${emailData}`,
-      {
-        headers: {
-          access_token: `${accessToken}`,
-        },
-      }
-    );
-    console.log("Response:", response);
-    console.log(emailData);
-    return response.data;
+    const response = await axiosAWSInstance.get(`/user/mypage/${emailData}`, {
+      headers: {
+        access_token: `${accessToken}`,
+      },
+    });
+
+    const { id, email, nickName, role, phoneNumber, profileImage } =
+      response.data.result;
+
+    return {
+      id,
+      email,
+      nickName,
+      role,
+      phoneNumber,
+      profileImage,
+    };
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

@@ -7,7 +7,7 @@ import {
   isEmailAvailableState,
 } from "@/atoms/emailCheck";
 import { useRouter } from "next/router";
-import { axiosAWSInstance } from "@/apis/axiosInstance";
+import { checkEmail, submitSignup } from "@/apis/auth/signup";
 
 const IconComponents = {
   UserPlus: icons.userplusIcons,
@@ -76,33 +76,26 @@ const Auth = () => {
     Object.keys(signupData).forEach((key) => {
       formData.append(key, (signupData as any)[key]);
     });
-    console.log(formData);
-    try {
-      const res = await axiosAWSInstance.post(`/jwt-login/join`, formData);
-      console.log("Response =>", res.data);
+    const data = await submitSignup(formData);
+
+    if (data) {
+      console.log("Response =>", data);
       router.push("/auth");
-    } catch (error) {
-      console.error(error);
+    } else {
       alert("회원가입에 실패하였습니다.");
     }
   };
 
   const handleEmailCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    try {
-      const res = await axiosAWSInstance.get(
-        `/jwt-login/join/${signupData.email}`
-      );
-      console.log();
-      if (res.data) {
-        setIsEmailAvailable(true);
-        setEmailCheckMessage("사용 가능");
-      } else {
-        setIsEmailAvailable(false);
-        setEmailCheckMessage("이메일 중복입니다.");
-      }
-    } catch (error) {
-      console.error(error);
+    const data = await checkEmail(signupData.email);
+
+    if (data) {
+      setIsEmailAvailable(true);
+      setEmailCheckMessage("사용 가능");
+    } else {
+      setIsEmailAvailable(false);
+      setEmailCheckMessage("이메일 중복입니다.");
     }
   };
 

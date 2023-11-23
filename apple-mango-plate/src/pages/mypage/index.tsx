@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { myPageState } from "@/atoms/myPageIdx";
 import Layout from "@/components/Layout/layout";
-import { axiosAWSInstance } from "@/apis/axiosInstance";
-import { getCookie } from "cookies-next";
+import { getMyPage } from "@/apis/mypage/mypage";
 
 const MyPage = () => {
   const myPageData = useRecoilValue(myPageState);
@@ -13,30 +11,14 @@ const MyPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const emailData = localStorage.getItem("email");
-        const accessToken = getCookie("accessToken");
+        const data = await getMyPage();
 
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_AWS_SERVER}/user/mypage/${emailData}`,
-          {
-            headers: {
-              access_token: `${accessToken}`,
-            },
-          }
-        );
-
-        const { id, email, nickName, role, phoneNumber, profileImage } =
-          response.data.result;
-
-        setMyPageData({
-          ...myPageData,
-          id,
-          email,
-          nickName,
-          role,
-          phoneNumber,
-          profileImage,
-        });
+        if (data !== null) {
+          setMyPageData({
+            ...myPageData,
+            ...data,
+          });
+        }
       } catch (error) {
         console.log(error);
       }
