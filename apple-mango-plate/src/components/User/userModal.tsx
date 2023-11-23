@@ -4,6 +4,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
 import Link from "next/link";
+import { getCookie, deleteCookie } from "cookies-next";
 
 const UserModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState<boolean>(userModalToggle);
@@ -21,7 +22,7 @@ const UserModal = () => {
     axiosAWSInstance
       .delete(`/jwt-login/logout/${email}`)
       .then((response) => {
-        localStorage.removeItem("accessToken");
+        deleteCookie("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("email");
         setUser(null);
@@ -35,7 +36,7 @@ const UserModal = () => {
   };
 
   useEffect(() => {
-    setIsUserLoggedIn(!!localStorage.getItem("accessToken"));
+    setIsUserLoggedIn(!!getCookie("accessToken"));
   }, []);
 
   return (

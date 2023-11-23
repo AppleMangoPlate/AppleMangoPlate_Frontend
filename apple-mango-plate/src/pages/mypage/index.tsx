@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { myPageState } from "@/atoms/myPageIdx";
 import Layout from "@/components/Layout/layout";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
+import { getCookie } from "cookies-next";
 
 const MyPage = () => {
   const myPageData = useRecoilValue(myPageState);
@@ -13,7 +14,7 @@ const MyPage = () => {
     const fetchData = async () => {
       try {
         const emailData = localStorage.getItem("email");
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = getCookie("accessToken");
 
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_AWS_SERVER}/user/mypage/${emailData}`,

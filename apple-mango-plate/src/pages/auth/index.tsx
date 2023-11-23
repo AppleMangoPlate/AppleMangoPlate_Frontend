@@ -8,6 +8,7 @@ import { emailState, passwordState } from "@/atoms/auth";
 import Image from "next/image";
 import LogoImg from "@/assets/images/Logo.png";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
+import { setCookie } from "cookies-next";
 
 const Auth = () => {
   const KakaoIcon = icons.kakaoIcons;
@@ -33,7 +34,8 @@ const Auth = () => {
           console.log("res.data.accessToken : " + res.headers);
           console.log(refreshToken);
 
-          localStorage.setItem("accessToken", accessToken);
+          // localStorage.setItem("accessToken", accessToken);
+          setCookie("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("email", email);
 
