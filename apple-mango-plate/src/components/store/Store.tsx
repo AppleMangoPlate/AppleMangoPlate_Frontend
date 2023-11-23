@@ -13,7 +13,7 @@ export default function Store({ storeInfo }: Props) {
     <div className="w-full flex justify-center py-10">
       <section className="flex w-[500px] md:w-[700px] justify-center flex-col">
         <PlaceInfo storeInfo={storeInfo} />
-        <div className="flex relative mt-10 w-full h-fit justify-center items-center flex-col bg-[url('/store_background.png')] bg-cover bg-center">
+        <div className="flex relative mt-10 pb-20 w-full h-fit justify-center items-center flex-col bg-[url('/store_background.png')] bg-cover bg-center">
           <PlaceMap x={storeInfo.x} y={storeInfo.y} />
           <PlaceReview />
         </div>

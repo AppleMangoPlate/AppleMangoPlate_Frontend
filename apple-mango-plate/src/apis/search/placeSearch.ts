@@ -20,6 +20,7 @@ export const getPlaceSearch = async (place: string) => {
   const res = await axiosSearchInstance.get(
     `/keyword.json?page=1&size=1&sort=accuracy&query=${place}&category_group_code=FD6`
   );
+
   return storeFillterFn(res.data.documents[0]);
 };
 

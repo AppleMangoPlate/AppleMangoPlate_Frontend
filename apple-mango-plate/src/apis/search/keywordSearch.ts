@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { axiosSearchInstance } from "../axiosInstance";
+import { axiosInstance, axiosSearchInstance } from "../axiosInstance";
 import { Store } from "@/types/store.dto";
 import { GetServerSideProps } from "next";
 

@@ -46,7 +46,7 @@ export default function PlaceReview() {
       </div>
       <div className="flex flex-col w-[450px] md:w-[650px] border-2 border-black bg-white">
         <div className="flex-col flex w-full items-center mt-10 mb-4">
-          <h1 className="text-xl mb-2">review</h1>
+          <h1 className="text-xl font-bold mb-2">review</h1>
           <ReactStars
             count={5}
             size={16}

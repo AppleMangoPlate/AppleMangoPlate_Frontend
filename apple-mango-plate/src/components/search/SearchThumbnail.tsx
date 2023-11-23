@@ -8,7 +8,7 @@ export default function SearchThumbnail(props: Store) {
   const { category_name, place_name, road_address_name } = props;
 
   const handleNavigateStore = () => {
-    router.push(`/store/${place_name}`);
+    router.push(`/store/${place_name} ${category_name}`);
   };
 
   return (
