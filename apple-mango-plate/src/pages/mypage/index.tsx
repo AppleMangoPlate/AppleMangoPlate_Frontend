@@ -1,32 +1,13 @@
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { myPageState } from "@/atoms/myPageIdx";
+import { useRecoilState } from "recoil";
 import Layout from "@/components/Layout/layout";
-import { getMyPage } from "@/apis/mypage/mypage";
+import { myPageButtonState } from "@/atoms/myPageButton";
+import UserDataPage from "@/components/MyPage/User/userData";
+import SaveItemPage from "@/components/MyPage/SaveItem/saveItem";
+import ReviewPage from "@/components/MyPage/Review/review";
 
 const MyPage = () => {
-  const myPageData = useRecoilValue(myPageState);
-  const setMyPageData = useSetRecoilState(myPageState);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getMyPage();
-
-        if (data !== null) {
-          setMyPageData({
-            ...myPageData,
-            ...data,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, [myPageData, setMyPageData]);
-
+  const [button, setButton] = useRecoilState(myPageButtonState);
+  const buttons = ["내정보", "찜", "리뷰모음"];
   return (
     <Layout>
       <div>
@@ -37,26 +18,21 @@ const MyPage = () => {
         </div>
         <div className="w-full h-16 border-b-[3px] border-mypage-header">
           <div className="flex flex-row h-16 items-center text-xl text-primary-orange ml-20">
-            <button className="bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5">
-              내정보
-            </button>
-            <button className="bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5">
-              찜
-            </button>
-            <button className="bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1">
-              리뷰모음
-            </button>
+            {buttons.map((name, index) => (
+              <button
+                key={index}
+                className="bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5"
+                onClick={() => setButton(name)}
+              >
+                {name}
+              </button>
+            ))}
           </div>
         </div>
         <div className="flex items-center justify-center h-screen">
-          <div>
-            <p>ID: {myPageData.id}</p>
-            <p>Email: {myPageData.email}</p>
-            <p>Nickname: {myPageData.nickName}</p>
-            <p>Role: {myPageData.role}</p>
-            <p>Phone Number: {myPageData.phoneNumber}</p>
-            <p>Profile Image: {myPageData.profileImage}</p>
-          </div>
+          {button === "내정보" && <UserDataPage />}
+          {button === "찜" && <SaveItemPage />}
+          {button === "리뷰모음" && <ReviewPage />}
         </div>
       </div>
     </Layout>
