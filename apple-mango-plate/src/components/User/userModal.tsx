@@ -3,6 +3,7 @@ import { userModalToggle, userState } from "@/atoms/users";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { axiosAWSInstance } from "@/apis/axiosInstance";
+import { useQueryClient } from "react-query";
 import Link from "next/link";
 import { getCookie, deleteCookie } from "cookies-next";
 
@@ -16,6 +17,9 @@ const UserModal = () => {
     setModalOpen(false);
     router.push(des);
   };
+
+  const queryClient = useQueryClient();
+
   const handleLogout = () => {
     const email = localStorage.getItem("email");
 
@@ -29,6 +33,7 @@ const UserModal = () => {
         setModalOpen(false);
         router.push("/");
         setIsUserLoggedIn(false);
+        queryClient.removeQueries("myPageData");
       })
       .catch((error) => {
         console.error("Logout failed", error);
