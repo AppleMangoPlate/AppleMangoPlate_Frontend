@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { myPageState } from "@/atoms/myPageIdx";
 import { getMyPage } from "@/apis/mypage/mypage";
+import { editMyPage } from "@/apis/mypage/editData";
 
 const UserDataPage = () => {
   const [myPageData, setMyPageData] = useRecoilState(myPageState);
+  const [newNickName, setNewNickName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +26,20 @@ const UserDataPage = () => {
     fetchData();
   }, [myPageData, setMyPageData]);
 
+  const handleNickNameChange = async () => {
+    try {
+      const data = await editMyPage(newNickName);
+      if (data !== null) {
+        setMyPageData({
+          ...myPageData,
+          ...data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -35,7 +51,15 @@ const UserDataPage = () => {
       <div>
         <p>ID: {myPageData.id}</p>
         <p>Email: {myPageData.email}</p>
-        <p>Nickname: {myPageData.nickName}</p>
+        <div>
+          <p>Nickname: {myPageData.nickName}</p>
+          <input
+            type="text"
+            value={newNickName}
+            onChange={(e) => setNewNickName(e.target.value)}
+          />
+          <button onClick={handleNickNameChange}>닉네임 변경</button>
+        </div>
         <p>Role: {myPageData.role}</p>
         <p>Phone Number: {myPageData.phoneNumber}</p>
         <p>Profile Image: {myPageData.profileImage}</p>
