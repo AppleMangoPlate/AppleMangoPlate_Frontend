@@ -9,6 +9,7 @@ const UserDataPage = () => {
   const [myPageStateData, setMyPageData] = useRecoilState(myPageState);
   const [newNickName, setNewNickName] = useState("");
   const [newPhone, setNewPhone] = useState("");
+  const [profileImage, setProfileImage] = useState<File | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -27,25 +28,31 @@ const UserDataPage = () => {
     },
   });
 
-  const mutation = useMutation(
-    (newData: { nickName: string; phoneNumber: string }) =>
-      editMyPage(newData.nickName, newData.phoneNumber),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("myPageData");
-      },
+  const mutation = useMutation(editMyPage, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("myPageData");
+    },
+  });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setProfileImage(e.target.files[0]);
     }
-  );
+  };
 
   const handleDataChange = () => {
-    mutation.mutate(
-      { nickName: newNickName, phoneNumber: newPhone },
-      {
-        onSuccess: () => {
-          refetch();
-        },
-      }
-    );
+    const formData = new FormData();
+    formData.append("nickName", newNickName);
+    formData.append("phoneNumber", newPhone);
+    if (profileImage) {
+      formData.append("profileImage", profileImage);
+    }
+
+    mutation.mutate(formData, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
   };
 
   if (!myPageQueryData) {
@@ -54,15 +61,23 @@ const UserDataPage = () => {
   return (
     <div className="flex flex-col justify-center items-center ">
       <h2 className="text-3xl text-left">내 정보 수정</h2>
-      <p className="text-lg ml-20">
-        애플 망고 플레이트의 프로필을 수정 하실 수 있습니다.
-      </p>
+      <div>
+        <p className="text-lg ml-20">
+          애플 망고 플레이트의 프로필을 수정 하실 수 있습니다.
+        </p>
+      </div>
       <div className="w-full h-full my-10 space-y-2">
         <div className="bg-primary-yellow">
           <div className="mb-4 w-full">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               프로필 이미지 변경
             </label>
+            <img className="w-20 h-20" src={myPageQueryData.profileImage} />
+            <input
+              type="file"
+              onChange={handleImageChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
         </div>
         <div className="bg-primary-yellow">
