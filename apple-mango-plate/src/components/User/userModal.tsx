@@ -50,17 +50,29 @@ const UserModal = () => {
             <div className="mb-4">
               <p>
                 {isUserLoggedIn ? (
-                  <Link href="/mypage">마이페이지</Link>
+                  <div className="flex w-full justify-center border-2 border-white rounded-2xl">
+                    <Link href="/mypage">마이페이지</Link>
+                  </div>
                 ) : (
-                  "로그인이 필요합니다"
+                  ""
                 )}
               </p>
             </div>
-            <div className="flex justify-center">
+            <div className="flex  justify-center">
               {isUserLoggedIn ? (
-                <button onClick={handleLogout}>로그아웃</button>
+                <button
+                  className="border-2 border-white rounded-2xl w-full"
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </button>
               ) : (
-                <button onClick={() => onClose("/auth")}>로그인</button>
+                <button
+                  className="border-2 border-white rounded-2xl w-full"
+                  onClick={() => onClose("/auth")}
+                >
+                  로그인
+                </button>
               )}
             </div>
           </div>
