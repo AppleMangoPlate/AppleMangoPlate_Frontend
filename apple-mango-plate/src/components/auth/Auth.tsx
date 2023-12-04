@@ -33,6 +33,12 @@ const Auth = () => {
     }
   }
 
+  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      joinHandler();
+    }
+  };
+
   return (
     <div className="bg-primary-black min-h-screen flex justify-center items-center">
       <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
@@ -49,6 +55,8 @@ const Auth = () => {
               required
               value={email}
               placeholder="test@gmail.com"
+              autoFocus
+              onKeyDown={handleOnKeyPress}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -63,6 +71,7 @@ const Auth = () => {
               type="password"
               placeholder="test"
               value={password}
+              onKeyDown={handleOnKeyPress}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
