@@ -21,7 +21,9 @@ const MyPage = () => {
             {buttons.map((name, index) => (
               <button
                 key={index}
-                className="bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5"
+                className={`bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5 shadow-md ${
+                  button === name ? "active" : ""
+                }`}
                 onClick={() => setButton(name)}
               >
                 {name}
@@ -29,7 +31,7 @@ const MyPage = () => {
             ))}
           </div>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex w-full items-center justify-center h-screen">
           {button === "내정보" && <UserDataPage />}
           {button === "찜" && <SaveItemPage />}
           {button === "리뷰모음" && <ReviewPage />}
