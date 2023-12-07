@@ -102,7 +102,7 @@ const UserDataPage = () => {
             />
             <label
               htmlFor="file-input"
-              className="text-white bg-black p-2 px-4 rounded-3xl"
+              className="text-white cursor-pointer bg-black p-2 px-4 rounded-3xl"
             >
               사진 변경
             </label>
@@ -119,7 +119,7 @@ const UserDataPage = () => {
                 type="text"
                 value={newNickName}
                 onChange={(e) => setNewNickName(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
                 placeholder={myPageQueryData.nickName}
               />
             </div>
@@ -161,7 +161,7 @@ const UserDataPage = () => {
             </div>
           </div>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center focus:outline-none focus:shadow-outline"
+            className="bg-blue-500  hover:bg-blue-700 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center focus:outline-none focus:shadow-outline"
             onClick={handleDataChange}
           >
             <svg

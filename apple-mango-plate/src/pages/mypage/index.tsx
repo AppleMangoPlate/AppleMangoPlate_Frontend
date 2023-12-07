@@ -22,7 +22,7 @@ const MyPage = () => {
               <button
                 key={index}
                 className={`bg-white border-[2px] border-primary-orange rounded-3xl w-24 py-1 mr-5 shadow-md ${
-                  button === name ? "active" : ""
+                  button === name ? "active " : ""
                 }`}
                 onClick={() => setButton(name)}
               >
