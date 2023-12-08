@@ -4,13 +4,12 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { myPageState } from "@/atoms/myPageIdx";
 import { getMyPage } from "@/apis/mypage/mypage";
 import { editMyPage } from "@/apis/mypage/editData";
-import Image from "next/image";
 
 const UserDataPage = () => {
   const [myPageStateData, setMyPageData] = useRecoilState(myPageState);
   const [newNickName, setNewNickName] = useState("");
   const [newPhone, setNewPhone] = useState("");
-  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -28,12 +27,44 @@ const UserDataPage = () => {
       }
     },
   });
+  const [profileImage, setProfileImage] = useState<File | string | null>(
+    myPageQueryData ? myPageQueryData.profileImage : ""
+  );
 
   const mutation = useMutation(editMyPage, {
     onSuccess: () => {
       queryClient.invalidateQueries("myPageData");
     },
+    onError: (error: any) => {
+      alert(`오류가 발생했습니다: ${error.message}`);
+    },
   });
+
+  const handleDataChange = () => {
+    const formData = new FormData();
+
+    if (newNickName.trim() !== "") {
+      formData.append("nickName", newNickName);
+    } else {
+      formData.append("nickName", myPageStateData.nickName);
+    }
+
+    if (newPhone.trim() !== "") {
+      formData.append("phoneNumber", newPhone);
+    } else {
+      formData.append("phoneNumber", myPageStateData.phoneNumber);
+    }
+
+    if (profileImage && typeof profileImage !== "string") {
+      formData.append("profileImage", profileImage);
+    }
+
+    mutation.mutate(formData, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -43,27 +74,13 @@ const UserDataPage = () => {
         return;
       }
       setProfileImage(file);
-    }
-  };
 
-  const handleDataChange = () => {
-    if (newNickName.trim() === "" || newPhone.trim() === "") {
-      alert("닉네임과 전화번호는 공백일 수 없습니다.");
-      return;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
-
-    const formData = new FormData();
-    formData.append("nickName", newNickName);
-    formData.append("phoneNumber", newPhone);
-    if (profileImage) {
-      formData.append("profileImage", profileImage);
-    }
-
-    mutation.mutate(formData, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
   };
 
   if (!myPageQueryData) {
@@ -83,7 +100,13 @@ const UserDataPage = () => {
             <label>프로필 사진 변경</label>
           </div>
           <div className="flex w-1/3 items-center justify-start ">
-            {myPageQueryData.profileImage ? (
+            {imagePreview ? (
+              <img
+                className="w-32 h-32 rounded-full"
+                src={imagePreview}
+                alt="Profile preview"
+              />
+            ) : myPageQueryData.profileImage ? (
               <img
                 className="w-32 h-32 rounded-full"
                 src={myPageQueryData.profileImage}
@@ -124,7 +147,7 @@ const UserDataPage = () => {
               />
             </div>
           </div>
-          <button
+          {/* <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center focus:outline-none focus:shadow-outline"
             onClick={handleDataChange}
           >
@@ -142,7 +165,7 @@ const UserDataPage = () => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-          </button>
+          </button> */}
         </div>
 
         <div className="bg-primary-yellow mb-4 w-full flex flex-col items-center py-4">
@@ -160,7 +183,7 @@ const UserDataPage = () => {
               />
             </div>
           </div>
-          <button
+          {/* <button
             className="bg-blue-500  hover:bg-blue-700 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center focus:outline-none focus:shadow-outline"
             onClick={handleDataChange}
           >
@@ -178,8 +201,16 @@ const UserDataPage = () => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-          </button>
+          </button> */}
         </div>
+      </div>
+      <div className="flex justify-center">
+        <button
+          className="px-6 p-4 bg-primary-orange hover:bg-mypage-header duration-300 rounded-3xl text-white"
+          onClick={handleDataChange}
+        >
+          수정하기
+        </button>
       </div>
     </div>
   );
