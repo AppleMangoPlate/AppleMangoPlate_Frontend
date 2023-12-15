@@ -41,9 +41,9 @@ const Auth = () => {
 
   return (
     <div className="bg-primary-black min-h-screen flex justify-center items-center">
-      <div className="bg-[white] w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
+      <div className="bg-[white] text-white w-96 h-[500px] rounded-3xl flex flex-col justify-center items-center p-5">
         <Image src={LogoImg} alt="Logo" width={120} height={120} />
-        <h2 className="text-[black] text-2xl mb-6">Login</h2>
+        <h2 className="text-[black] font-extrabold text-2xl mb-6">Login</h2>
         <form className="flex flex-col gap-3 w-2/3  mb-5">
           <div className="bg-primary-black flex items-center gap-3 rounded-3xl py-2">
             <label className="block w-4 text-sm ml-2" htmlFor="email">
