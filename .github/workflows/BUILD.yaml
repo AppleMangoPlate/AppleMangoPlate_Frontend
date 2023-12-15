@@ -1,0 +1,49 @@
+name: 'Build Next.js'
+
+on:
+  push:
+    branches: 
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  NEXT_PUBLIC_SERVER: "https://applemango.store"
+  NEXT_PUBLIC_SEARCH_API: "https://dapi.kakao.com/v2/local/search"
+  dir: ./apple-mango-plate
+
+jobs:
+  deploy:
+    name: Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.16.0"
+      - name: Create Env
+        run: |
+          echo "NEXT_PUBLIC_SERVER=${{ env.NEXT_PUBLIC_SERVER }}" >> .env
+          echo "NEXT_PUBLIC_SEARCH_API=${{ env.NEXT_PUBLIC_SEARCH_API }}" >> .env
+          echo "NEXT_PUBLIC_SEARCH_API_KEY=${{ secrets.KAKAO_KEY }}" >> .env
+        working-directory: ${{ env.dir }}
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: npm-pakages-${{ hashFiles('**/pakage-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: ${{ env.dir }}
+      - name: Build  Next.js
+        run: npm run build
+        working-directory: ${{ env.dir }}
