@@ -2,7 +2,11 @@ import { axiosAWSInstance } from "../axiosInstance";
 import { getCookie } from "cookies-next";
 
 export const getMyPage = async () => {
-  const emailData = localStorage.getItem("email");
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const emailData = window.localStorage.getItem("email");
   const accessToken = getCookie("accessToken");
 
   try {
