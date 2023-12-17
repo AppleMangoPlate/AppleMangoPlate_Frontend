@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    let data = { email: email, password: password };
+    const data = { email: email, password: password };
     axios.defaults.withCredentials = true;
 
     const res = await axios.post(`/jwt-login/login`, data, {
