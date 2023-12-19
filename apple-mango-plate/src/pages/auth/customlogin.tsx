@@ -8,6 +8,7 @@ import {
   isEmailAvailableState,
 } from "@/atoms/emailCheck";
 import { useRouter } from "next/router";
+import { axiosInstance } from "@/apis/axiosInstance";
 
 const IconComponents = {
   UserPlus: icons.userplusIcons,
