@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
 import "../../axiosConfig";
 
@@ -21,7 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
       </QueryClientProvider>
     </RecoilRoot>
   );
