@@ -29,7 +29,7 @@ export default function Index() {
   return (
     <Layout>
       <Suspense fallback={<div>Loading...</div>}>
-        <Store storeInfo={data} />
+        {data && <Store storeInfo={data} />}
       </Suspense>
     </Layout>
   );
